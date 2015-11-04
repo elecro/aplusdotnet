@@ -2,7 +2,7 @@
 
 namespace AplusCore.Runtime.Function.Dyadic.NonScalar.Comparison
 {
-    class Match : AbstractDyadicFunction
+    public class Match : AbstractDyadicFunction
     {
         public override AType Execute(AType right, AType left, Aplus environment = null)
         {

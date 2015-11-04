@@ -4,7 +4,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Operator.Dyadic
 {
-    class Apply
+    public class Apply
     {
         public AType Execute(AType functionScalar, AType right, AType left, Aplus environment = null)
         {

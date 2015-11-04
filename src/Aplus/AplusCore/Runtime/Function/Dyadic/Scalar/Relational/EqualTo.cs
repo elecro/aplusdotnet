@@ -14,7 +14,7 @@ namespace AplusCore.Runtime.Function.Dyadic.Scalar.Relational
     /// </remarks>
     ///
     [DefaultResult(ATypes.AInteger)]
-    class EqualTo : DyadicScalar
+    public class EqualTo : DyadicScalar
     {
 
         [DyadicScalarMethod]

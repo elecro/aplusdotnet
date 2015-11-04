@@ -6,7 +6,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Dyadic.NonScalar.Comparison
 {
-    class Member : AbstractDyadicFunction
+    public class Member : AbstractDyadicFunction
     {
         #region Nested class for search information handling
 

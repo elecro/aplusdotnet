@@ -7,7 +7,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Other
 {
-    class Value : AbstractMonadicFunction
+    public class Value : AbstractMonadicFunction
     {
         #region DLR entry point
 

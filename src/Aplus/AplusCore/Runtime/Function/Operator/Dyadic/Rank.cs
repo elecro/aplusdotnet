@@ -7,7 +7,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Operator.Dyadic
 {
-    class Rank
+    public class Rank
     {
         #region Information for rank
 

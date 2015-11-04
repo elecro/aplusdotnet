@@ -6,7 +6,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Structural
 {
-    class Disclose : AbstractMonadicFunction
+    public class Disclose : AbstractMonadicFunction
     {
         #region Entry point
 

@@ -7,7 +7,7 @@ using AplusCore.Runtime.Function.Tools;
 
 namespace AplusCore.Runtime.Function.Dyadic.NonScalar.Computational
 {
-    class Solve : AbstractDyadicFunction
+    public class Solve : AbstractDyadicFunction
     {
         #region Constants
 

@@ -6,7 +6,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Dyadic.Scalar
 {
-    abstract class DyadicScalar : AbstractDyadicFunction
+    public abstract class DyadicScalar : AbstractDyadicFunction
     {
         #region Variables
 

@@ -5,7 +5,7 @@ using AplusCore.Types;
 namespace AplusCore.Runtime.Function.Monadic.Scalar.Miscellaneous
 {
     [DefaultResult(ATypes.AInteger)]
-    class Sign : MonadicScalar
+    public class Sign : MonadicScalar
     {
 
         public override AType ExecutePrimitive(AInteger argument, Aplus environment = null)

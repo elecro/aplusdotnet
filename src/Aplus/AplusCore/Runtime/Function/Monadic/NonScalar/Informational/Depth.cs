@@ -4,7 +4,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Informational
 {
-    class Depth : AbstractMonadicFunction
+    public class Depth : AbstractMonadicFunction
     {
         #region Entry point
 

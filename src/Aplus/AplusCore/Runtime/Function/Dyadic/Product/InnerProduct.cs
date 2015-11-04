@@ -14,7 +14,7 @@ namespace AplusCore.Runtime.Function.Dyadic.Product
     /// where pdt:
     /// pdt{a;b} : f/ a g b
     /// </remarks>
-    abstract class InnerProduct : AbstractDyadicFunction
+    public abstract class InnerProduct : AbstractDyadicFunction
     {
         #region Entry Point
 

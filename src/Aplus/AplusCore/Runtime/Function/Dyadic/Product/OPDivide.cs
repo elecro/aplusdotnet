@@ -2,7 +2,7 @@
 
 namespace AplusCore.Runtime.Function.Dyadic.Product
 {
-    class OPDivide : OuterProduct
+    public class OPDivide : OuterProduct
     {
         protected override ATypes NullType { get { return ATypes.AFloat; } }
 

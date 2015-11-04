@@ -7,7 +7,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Dyadic.NonScalar.Other
 {
-    class BitwiseCast : AbstractDyadicFunction
+    public class BitwiseCast : AbstractDyadicFunction
     {
         #region Delegates
 

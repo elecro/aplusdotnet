@@ -6,7 +6,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Operator.Monadic
 {
-    class Rank
+    public class Rank
     {
         #region DLR entry point
 

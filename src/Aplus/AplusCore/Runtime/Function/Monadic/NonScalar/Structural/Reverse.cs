@@ -4,7 +4,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Structural
 {
-    class Reverse : AbstractMonadicFunction
+    public class Reverse : AbstractMonadicFunction
     {
 
         public override AType Execute(AType argument, Aplus environment = null)

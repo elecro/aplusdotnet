@@ -5,7 +5,7 @@ namespace AplusCore.Runtime.Function.Monadic.Scalar.Miscellaneous
     /// <summary>
     /// ~(a)
     /// </summary>
-    class BitwiseNot : MonadicScalar
+    public class BitwiseNot : MonadicScalar
     {
         public override AType ExecutePrimitive(AInteger argument, Aplus environment = null)
         {

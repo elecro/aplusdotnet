@@ -2,7 +2,7 @@
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Informational
 {
-    class Count : AbstractMonadicFunction
+    public class Count : AbstractMonadicFunction
     {
 
         /// <summary>

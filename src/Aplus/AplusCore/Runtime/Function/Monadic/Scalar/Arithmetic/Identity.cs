@@ -2,7 +2,7 @@
 
 namespace AplusCore.Runtime.Function.Monadic.Scalar.Arithmetic
 {
-    class Identity : MonadicScalar
+    public class Identity : MonadicScalar
     {
         public override AType ExecutePrimitive(AInteger argument, Aplus environment = null)
         {

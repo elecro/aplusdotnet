@@ -3,7 +3,7 @@
 namespace AplusCore.Runtime.Function.Monadic.Scalar.Logical
 {
     [DefaultResult(ATypes.AInteger)]
-    class Not : MonadicScalar
+    public class Not : MonadicScalar
     {
         public override AType ExecutePrimitive(AInteger argument, Aplus environment = null)
         {

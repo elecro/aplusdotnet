@@ -9,7 +9,7 @@ using DYN = System.Dynamic;
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Other
 {
-    class ExecuteFunction : AbstractMonadicFunction
+    public class ExecuteFunction : AbstractMonadicFunction
     {
         #region Entry point
 

@@ -6,7 +6,7 @@ namespace AplusCore.Runtime.Function.Dyadic.Product
     /// <summary>
     /// Performs inner product  max.+  operator
     /// </summary>
-    class IPMaxAdd : InnerProduct
+    public class IPMaxAdd : InnerProduct
     {
         protected override AType Calculate(AType left, AType right, Aplus env)
         {

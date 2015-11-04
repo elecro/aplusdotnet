@@ -2,7 +2,7 @@
 
 namespace AplusCore.Runtime.Function.Monadic
 {
-    abstract class AbstractMonadicFunction
+    public abstract class AbstractMonadicFunction
     {
         /// <summary>
         /// Execute the Monadic function.

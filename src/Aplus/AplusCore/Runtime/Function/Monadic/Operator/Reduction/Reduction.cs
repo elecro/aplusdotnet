@@ -5,7 +5,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Monadic.Operator.Reduction
 {
-    abstract class Reduction : AbstractMonadicFunction
+    public abstract class Reduction : AbstractMonadicFunction
     {
         #region Variables
 

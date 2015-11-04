@@ -5,7 +5,7 @@ using AplusCore.Types;
 namespace AplusCore.Runtime.Function.Dyadic.Scalar.Relational
 {
     [DefaultResult(ATypes.AInteger)]
-    class LessThan : DyadicScalar
+    public class LessThan : DyadicScalar
     {
         [DyadicScalarMethod]
         public AType ExecutePrimitive(AFloat rightArgument, AFloat leftArgument)

@@ -16,7 +16,7 @@ namespace AplusCore.Runtime.Function.Dyadic.Scalar.Relational
     /// Exceptions: Type
     /// </remarks>
     [DefaultResult(ATypes.AInteger)]
-    class GreaterThan : DyadicScalar
+    public class GreaterThan : DyadicScalar
     {
         [DyadicScalarMethod]
         public AType ExecutePrimitive(AFloat rightArgument, AFloat leftArgument)

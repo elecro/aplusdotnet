@@ -8,7 +8,7 @@ using DLR = System.Linq.Expressions;
 
 namespace AplusCore.Runtime.Function.Dyadic.NonScalar.Other
 {
-    class ExecuteInContext : AbstractDyadicFunction
+    public class ExecuteInContext : AbstractDyadicFunction
     {
         #region Entry point
 

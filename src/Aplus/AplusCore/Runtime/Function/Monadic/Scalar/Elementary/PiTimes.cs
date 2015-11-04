@@ -5,7 +5,7 @@ using AplusCore.Types;
 namespace AplusCore.Runtime.Function.Monadic.Scalar.Elementary
 {
     [DefaultResult(ATypes.AFloat)]
-    class PiTimes : MonadicScalar
+    public class PiTimes : MonadicScalar
     {
         public override AType ExecutePrimitive(AInteger argument, Aplus environment = null)
         {

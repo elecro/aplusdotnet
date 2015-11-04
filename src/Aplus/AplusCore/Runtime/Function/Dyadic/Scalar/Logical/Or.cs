@@ -3,7 +3,7 @@
 namespace AplusCore.Runtime.Function.Dyadic.Scalar.Logical
 {
     [DefaultResult(ATypes.AInteger)]
-    class Or : DyadicScalar
+    public class Or : DyadicScalar
     {
         [DyadicScalarMethod]
         public AType ExecutePrimitive(AInteger rightArgument, AInteger leftArgument)

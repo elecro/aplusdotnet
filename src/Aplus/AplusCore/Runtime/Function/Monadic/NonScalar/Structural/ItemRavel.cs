@@ -4,7 +4,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Structural
 {
-    class ItemRavel : AbstractMonadicFunction
+    public class ItemRavel : AbstractMonadicFunction
     {
         public override AType Execute(AType argument, Aplus environment = null)
         {

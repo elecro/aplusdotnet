@@ -5,7 +5,7 @@ using AplusCore.Types;
 namespace AplusCore.Runtime.Function.Monadic.Scalar.Elementary
 {
     [DefaultResult(ATypes.AFloat)]
-    class NaturalLog : MonadicScalar
+    public class NaturalLog : MonadicScalar
     {
         public override AType ExecutePrimitive(AInteger argument, Aplus environment = null)
         {

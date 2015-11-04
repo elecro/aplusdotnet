@@ -2,7 +2,7 @@
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Informational
 {
-    class Shape : AbstractMonadicFunction
+    public class Shape : AbstractMonadicFunction
     {
         /// <summary>
         /// Returns the shape of the argument

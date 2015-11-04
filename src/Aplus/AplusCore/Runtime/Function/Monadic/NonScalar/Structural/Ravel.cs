@@ -4,7 +4,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Structural
 {
-    class Ravel : AbstractMonadicFunction
+    public class Ravel : AbstractMonadicFunction
     {
         #region Entry point
 

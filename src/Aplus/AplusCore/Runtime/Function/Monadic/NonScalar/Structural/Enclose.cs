@@ -2,7 +2,7 @@
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Structural
 {
-    class Enclose : AbstractMonadicFunction
+    public class Enclose : AbstractMonadicFunction
     {
         public override AType Execute(AType argument, Aplus environment = null)
         {

@@ -4,7 +4,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Other
 {
-    class Stop : AbstractMonadicFunction
+    public class Stop : AbstractMonadicFunction
     {
         public override AType Execute(AType argument, Aplus environment = null)
         {

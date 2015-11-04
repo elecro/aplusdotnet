@@ -6,7 +6,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Dyadic.NonScalar.Other
 {
-    class Map : AbstractDyadicFunction
+    public class Map : AbstractDyadicFunction
     {
         #region Entry point
 

@@ -8,7 +8,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Dyadic.NonScalar.Other
 {
-    class ValueInContext : AbstractDyadicFunction
+    public class ValueInContext : AbstractDyadicFunction
     {
         #region DLR entrypoint
 

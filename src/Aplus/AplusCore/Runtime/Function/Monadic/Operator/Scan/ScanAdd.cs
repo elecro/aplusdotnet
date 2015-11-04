@@ -5,7 +5,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Monadic.Operator.Scan
 {
-    class ScanAdd : Scan
+    public class ScanAdd : Scan
     {
         protected override void SetVariables(AType argument)
         {

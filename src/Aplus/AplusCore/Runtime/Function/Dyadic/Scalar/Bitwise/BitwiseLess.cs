@@ -5,7 +5,7 @@ namespace AplusCore.Runtime.Function.Dyadic.Scalar.Bitwise
     /// <summary>
     /// Bitwise Less for input x,y => (~x) & y
     /// </summary>
-    class BitwiseLess : DyadicScalar
+    public class BitwiseLess : DyadicScalar
     {
         [DyadicScalarMethod]
         public AType ExecutePrimitive(AInteger rightArgument, AInteger leftArgument)

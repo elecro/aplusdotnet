@@ -2,7 +2,7 @@
 
 namespace AplusCore.Runtime.Function.Dyadic.Product
 {
-    class OPMax : OuterProduct
+    public class OPMax : OuterProduct
     {
         protected override AType Calculate(AType left, AType right, Aplus env)
         {

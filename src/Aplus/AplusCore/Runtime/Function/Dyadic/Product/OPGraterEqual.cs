@@ -2,7 +2,7 @@
 
 namespace AplusCore.Runtime.Function.Dyadic.Product
 {
-    class OPGreaterEqual : OuterProduct
+    public class OPGreaterEqual : OuterProduct
     {
         protected override AType Calculate(AType left, AType right, Aplus env)
         {

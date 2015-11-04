@@ -5,7 +5,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Other
 {
-    class MapIn : AbstractMonadicFunction
+    public class MapIn : AbstractMonadicFunction
     {
         public override AType Execute(AType argument, Aplus environment = null)
         {

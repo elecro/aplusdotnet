@@ -2,7 +2,7 @@
 
 namespace AplusCore.Runtime.Function.Dyadic.Scalar.Bitwise
 {
-    class BitwiseAnd : DyadicScalar
+    public class BitwiseAnd : DyadicScalar
     {
         [DyadicScalarMethod]
         public AType ExecutePrimitive(AInteger rightArgument, AInteger leftArgument)

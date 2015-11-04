@@ -24,7 +24,7 @@ namespace AplusCore.Runtime.Function.Operator.Monadic
          * 
          */
 
-    class Each
+    public class Each
     {
 
         public AType Execute(AType function, AType argument, Aplus environment = null)

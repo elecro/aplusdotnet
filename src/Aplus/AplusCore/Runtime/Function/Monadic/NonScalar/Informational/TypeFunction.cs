@@ -2,7 +2,7 @@
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Informational
 {
-    class TypeFunction : AbstractMonadicFunction
+    public class TypeFunction : AbstractMonadicFunction
     {
         /// <summary>
         /// returns the type of the argument in a ASymbol

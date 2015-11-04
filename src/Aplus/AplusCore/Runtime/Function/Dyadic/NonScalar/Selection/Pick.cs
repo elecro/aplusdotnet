@@ -5,11 +5,11 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Dyadic.NonScalar.Selection
 {
-    class Pick : AbstractDyadicFunction
+    public class Pick : AbstractDyadicFunction
     {
         #region Constructors
 
-        internal Pick()
+        public Pick()
         {
             Pick.SymbolConstant2SlotFillerDelegate = new ItemSelectDelegate(SimpleSymbolConstant2SlotFiller);
             Pick.NestedPathNumber2NestedArrayDelegate = new ItemSelectDelegate(NestedPathNumber2NestedArray);

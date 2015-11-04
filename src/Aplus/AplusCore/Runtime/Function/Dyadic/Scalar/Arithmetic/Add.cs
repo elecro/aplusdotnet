@@ -12,7 +12,7 @@ namespace AplusCore.Runtime.Function.Dyadic.Scalar.Arithmetic
     /// Exceptions: Type
     /// </remarks>
 
-    class Add : DyadicScalar
+    public class Add : DyadicScalar
     {
         [DyadicScalarMethod]
         public AType ExecutePrimitive(AInteger rightArgument, AInteger leftArgument)

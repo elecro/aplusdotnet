@@ -4,7 +4,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Structural
 {
-    class Rake : AbstractMonadicFunction
+    public class Rake : AbstractMonadicFunction
     {
         #region Entry point
 

@@ -6,7 +6,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime
 {
-    internal struct PickAssignmentTarget
+    public struct PickAssignmentTarget
     {
         #region Variables
 

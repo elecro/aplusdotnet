@@ -2,7 +2,7 @@
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Structural
 {
-    class Interval : AbstractMonadicFunction
+    public class Interval : AbstractMonadicFunction
     {
 
         private AType GenerateVector(int itemCount)

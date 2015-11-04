@@ -12,7 +12,7 @@ namespace AplusCore.Runtime.Function.Dyadic.Scalar.Logical
     /// Exceptions: Type
     /// </remarks>
     [DefaultResult(ATypes.AInteger)]
-    class And : DyadicScalar
+    public class And : DyadicScalar
     {
         [DyadicScalarMethod]
         public AType ExecutePrimitive(AInteger rightArgument, AInteger leftArgument)

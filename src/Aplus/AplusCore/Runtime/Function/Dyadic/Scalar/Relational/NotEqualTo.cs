@@ -3,7 +3,7 @@
 namespace AplusCore.Runtime.Function.Dyadic.Scalar.Relational
 {
     [DefaultResult(ATypes.AInteger)]
-    class NotEqualTo : DyadicScalar
+    public class NotEqualTo : DyadicScalar
     {
         [DyadicScalarMethod]
         public AType ExecutePrimitive(AFloat rightArgument, AFloat leftArgument)

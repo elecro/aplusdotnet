@@ -2,7 +2,7 @@
 
 namespace AplusCore.Runtime.Function.Dyadic
 {
-    abstract class AbstractDyadicFunction
+    public abstract class AbstractDyadicFunction
     {
         /// <summary>
         /// Execute the Dyadic function.

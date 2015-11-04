@@ -4,7 +4,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Computational
 {
-    class Pack : AbstractMonadicFunction
+    public class Pack : AbstractMonadicFunction
     {
         #region Entry point
 

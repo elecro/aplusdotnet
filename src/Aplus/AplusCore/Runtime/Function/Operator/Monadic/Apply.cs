@@ -4,7 +4,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Operator.Monadic
 {
-    class Apply
+    public class Apply
     {
         public AType Execute(AType functionScalar, AType argument, Aplus environment = null)
         {

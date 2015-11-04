@@ -6,7 +6,7 @@ namespace AplusCore.Runtime.Function.Dyadic.Product
     /// <summary>
     /// Performs inner product  +.*  operator
     /// </summary>
-    class IPAddMultiply : InnerProduct
+    public class IPAddMultiply : InnerProduct
     {
         protected override AType Calculate(AType left, AType right, Aplus env)
         {

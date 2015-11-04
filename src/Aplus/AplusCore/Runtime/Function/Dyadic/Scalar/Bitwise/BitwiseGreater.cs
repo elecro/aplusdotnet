@@ -5,7 +5,7 @@ namespace AplusCore.Runtime.Function.Dyadic.Scalar.Bitwise
     /// <summary>
     /// Bitwise Greater  for input x,y => (x & (~y))
     /// </summary>
-    class BitwiseGreater : DyadicScalar
+    public class BitwiseGreater : DyadicScalar
     {
         [DyadicScalarMethod]
         public AType ExecutePrimitive(AInteger rightArgument, AInteger leftArgument)

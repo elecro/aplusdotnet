@@ -5,7 +5,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Selection
 {
-    class SeparateSymbols : AbstractMonadicFunction
+    public class SeparateSymbols : AbstractMonadicFunction
     {
         #region Entry point
 

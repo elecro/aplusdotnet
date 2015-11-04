@@ -4,7 +4,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Comprasion
 {
-    class PartitionCount : AbstractMonadicFunction
+    public class PartitionCount : AbstractMonadicFunction
     {
         #region Entry point
 

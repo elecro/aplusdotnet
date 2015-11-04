@@ -5,7 +5,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Dyadic.NonScalar.Comparison
 {
-    class Bins : AbstractDyadicFunction
+    public class Bins : AbstractDyadicFunction
     {
         #region Nested class for argument pass
 

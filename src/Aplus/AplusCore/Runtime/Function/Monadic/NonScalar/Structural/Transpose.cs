@@ -5,7 +5,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Structural
 {
-    class Transpose : AbstractMonadicFunction
+    public class Transpose : AbstractMonadicFunction
     {
         #region Entry point
 

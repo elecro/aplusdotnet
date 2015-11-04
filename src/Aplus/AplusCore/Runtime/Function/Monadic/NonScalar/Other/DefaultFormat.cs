@@ -6,7 +6,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Other
 {
-    class DefaultFormat : AbstractMonadicFunction
+    public class DefaultFormat : AbstractMonadicFunction
     {
         #region Format information
 

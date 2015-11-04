@@ -2,7 +2,7 @@
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Other
 {
-    class Signal : AbstractMonadicFunction
+    public class Signal : AbstractMonadicFunction
     {
 
         public override AType Execute(AType argument, Aplus environment = null)

@@ -6,7 +6,7 @@ namespace AplusCore.Runtime.Function.Dyadic.Product
     /// <summary>
     /// Performs inner product  min.+  operator
     /// </summary>
-    class IPMinAdd : InnerProduct
+    public class IPMinAdd : InnerProduct
     {
         protected override AType Calculate(AType left, AType right, Aplus env)
         {

@@ -6,7 +6,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Dyadic.NonScalar.Other
 {
-    class Format : AbstractDyadicFunction
+    public class Format : AbstractDyadicFunction
     {
         #region Format information
 

@@ -16,7 +16,7 @@ namespace AplusCore.Runtime.Function.Dyadic.Scalar.Elementary
     /// Exeception: Type, Domain
     /// </remarks>
     [DefaultResult(ATypes.AFloat)]
-    class Circle : DyadicScalar
+    public class Circle : DyadicScalar
     {
         [DyadicScalarMethod]
         public AType ExecutePrimitive(AInteger rightArgument, AInteger leftArgument)

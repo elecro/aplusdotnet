@@ -7,7 +7,7 @@ using System.Text;
 
 namespace AplusCore.Runtime.Function.Dyadic.NonScalar.Other
 {
-    class Cast : AbstractDyadicFunction
+    public class Cast : AbstractDyadicFunction
     {
         private delegate AType Converter(AType argument, CastInfo arguments);
 

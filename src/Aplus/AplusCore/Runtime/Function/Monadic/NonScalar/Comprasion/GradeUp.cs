@@ -2,7 +2,7 @@
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Comprasion
 {
-    class GradeUp : AbstractMonadicFunction
+    public class GradeUp : AbstractMonadicFunction
     {
         #region Entry point
 

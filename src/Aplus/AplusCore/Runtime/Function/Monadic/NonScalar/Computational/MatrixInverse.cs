@@ -6,7 +6,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Computational
 {
-    class MatrixInverse : AbstractMonadicFunction
+    public class MatrixInverse : AbstractMonadicFunction
     {
         #region Entry Point
 

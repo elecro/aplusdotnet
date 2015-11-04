@@ -5,7 +5,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Monadic.Operator.Scan
 {
-    abstract class Scan : AbstractMonadicFunction
+    public abstract class Scan : AbstractMonadicFunction
     {
         #region Variables
 

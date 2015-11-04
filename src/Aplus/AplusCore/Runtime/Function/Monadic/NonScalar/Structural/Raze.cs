@@ -5,7 +5,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Structural
 {
-    class Raze : AbstractMonadicFunction
+    public class Raze : AbstractMonadicFunction
     {
         #region Entry point
 

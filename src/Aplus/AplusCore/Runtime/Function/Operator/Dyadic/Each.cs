@@ -25,7 +25,7 @@ namespace AplusCore.Runtime.Function.Operator.Dyadic
             }
          * 
          */
-    class Each
+    public class Each
     {
         public AType Execute(AType function, AType right, AType left, Aplus environment = null)
         {

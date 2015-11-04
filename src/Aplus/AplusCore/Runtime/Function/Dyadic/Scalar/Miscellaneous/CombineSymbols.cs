@@ -3,7 +3,7 @@
 namespace AplusCore.Runtime.Function.Dyadic.Scalar.Miscellaneous
 {
     [DefaultResult(ATypes.ANull)]
-    class CombineSymbols : DyadicScalar
+    public class CombineSymbols : DyadicScalar
     {
         [DyadicScalarMethod]
         public AType ExecutePrimitive(ASymbol rightArgument, ASymbol leftArgument)

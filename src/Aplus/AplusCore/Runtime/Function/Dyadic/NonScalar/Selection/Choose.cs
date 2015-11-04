@@ -5,7 +5,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Dyadic.NonScalar.Selection
 {
-    class Choose : AbstractDyadicFunction
+    public class Choose : AbstractDyadicFunction
     {
         #region Entry point
 

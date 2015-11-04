@@ -11,7 +11,7 @@ namespace AplusCore.Runtime.Function.Dyadic.Product
     /// Uses the definition written in language reference:
     /// y f. g  ==  y (f@ 0 0 0) x
     /// </remarks>
-    abstract class OuterProduct : AbstractDyadicFunction
+    public abstract class OuterProduct : AbstractDyadicFunction
     {
         #region Null Type information
 

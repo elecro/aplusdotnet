@@ -6,7 +6,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Dyadic.NonScalar.Computational
 {
-    class Deal : AbstractDyadicFunction
+    public class Deal : AbstractDyadicFunction
     {
         #region Nested class for shuffling
 

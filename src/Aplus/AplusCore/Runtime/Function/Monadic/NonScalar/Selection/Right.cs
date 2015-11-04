@@ -2,7 +2,7 @@
 
 namespace AplusCore.Runtime.Function.Monadic.NonScalar.Selection
 {
-    class Right : AbstractMonadicFunction
+    public class Right : AbstractMonadicFunction
     {
         public override AType Execute(AType argument, Aplus environment = null)
         {

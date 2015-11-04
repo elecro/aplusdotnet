@@ -3,7 +3,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Monadic.Operator.Reduction
 {
-    class ReduceAnd : Reduction
+    public class ReduceAnd : Reduction
     {
         protected override void SetVariables(ATypes type)
         {

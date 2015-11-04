@@ -3,7 +3,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Monadic.Operator.Scan
 {
-    class ScanMax : Scan
+    public class ScanMax : Scan
     {
         protected override void SetVariables(AType argument)
         {

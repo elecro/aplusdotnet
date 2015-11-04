@@ -6,7 +6,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Dyadic.NonScalar.Computational
 {
-    class Encode : AbstractDyadicFunction
+    public class Encode : AbstractDyadicFunction
     {
         #region Encode information
 

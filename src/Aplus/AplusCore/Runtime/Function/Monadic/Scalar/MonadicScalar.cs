@@ -6,7 +6,7 @@ using AplusCore.Types;
 
 namespace AplusCore.Runtime.Function.Monadic.Scalar
 {
-    abstract class MonadicScalar : AbstractMonadicFunction
+    public abstract class MonadicScalar : AbstractMonadicFunction
     {
         #region Variables
 
