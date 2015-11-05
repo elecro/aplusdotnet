@@ -315,6 +315,11 @@ namespace AplusCore.Types
 
         #region AArray methods
 
+        public static AType ANull()
+        {
+            return AArray.Create(ATypes.ANull);
+        }
+
         public static AType ANull(ATypes type = ATypes.ANull)
         {
             return AArray.Create(type);

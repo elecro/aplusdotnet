@@ -7,6 +7,7 @@ using AplusCore.Types;
 
 using DLR = System.Linq.Expressions;
 using System.Reflection;
+using System.Collections.Generic;
 
 namespace AplusCore.Compiler
 {
@@ -27,6 +28,7 @@ namespace AplusCore.Compiler
         /// <returns>Expression tree for retrieving a value for the given context parts</returns>
         internal static DLR.Expression GetVariable(Aplus runtime, DLR.Expression variableContainer, string[] contextParts)
         {
+#if DLLMODE
             // Get the context
             DLR.Expression contextAccess = DLR.Expression.Dynamic(
                 runtime.GetMemberBinder(contextParts[0]),
@@ -40,6 +42,10 @@ namespace AplusCore.Compiler
                 typeof(object),
                 contextAccess
             );
+#else
+            DLR.Expression variableAccess =
+                DLR.Expression.Call(typeof(Helpers).GetMethod("GetVariable"), variableContainer, DLR.Expression.Constant(contextParts[0]), DLR.Expression.Constant(contextParts[1]));
+#endif
             return variableAccess;
         }
 
@@ -64,6 +70,7 @@ namespace AplusCore.Compiler
         /// <returns>>Expression tree for setting a value for the given context parts</returns>
         internal static DLR.Expression SetVariable(Aplus runtime, DLR.Expression variableContainer, string[] contextParts, DLR.Expression value)
         {
+#if DLLMODE
             // Get the context
             DLR.Expression getContext =
                 DLR.Expression.TryCatch(
@@ -79,7 +86,7 @@ namespace AplusCore.Compiler
                             runtime.SetMemberBinder(contextParts[0]),
                             typeof(object),
                             variableContainer,
-                            DLR.Expression.Constant(new ScopeStorage())
+                            DLR.Expression.New(typeof(ScopeStorage).GetConstructor(new Type[] { }))
                         )
                     )
                 );
@@ -90,6 +97,10 @@ namespace AplusCore.Compiler
                 getContext,
                 value
             );
+#else
+            DLR.Expression setVariable =
+                DLR.Expression.Call(typeof(Helpers).GetMethod("SetVariable"), variableContainer, DLR.Expression.Constant(contextParts[0]), DLR.Expression.Constant(contextParts[1]), value);
+#endif
             return setVariable;
         }
 

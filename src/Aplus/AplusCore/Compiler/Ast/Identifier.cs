@@ -226,7 +226,13 @@ namespace AplusCore.Compiler.AST
             DLR.ParameterExpression errorParam = DLR.Expression.Parameter(typeof(Error.Signal));
             DLR.ParameterExpression value = DLR.Expression.Parameter(typeof(AType));
             DLR.Expression callback = AST.Assign.BuildCallbackCall(scope, value);
+
+            DLR.Expression anullExpression = DLR.Expression.Call(typeof(Utils).GetMethod("ANull", new Type[] { }));
+#if DLLMODE
             DLR.Expression presetCallback = AST.Assign.BuildPresetCallbackCall(scope, value);
+#else
+            DLR.Expression presetCallback = anullExpression;
+#endif
 
             string qualifiedName = this.BuildQualifiedName(scope.GetRuntime().CurrentContext);
 
@@ -243,8 +249,8 @@ namespace AplusCore.Compiler.AST
                             new DLR.ParameterExpression[] { scope.CallbackInfo.QualifiedName, scope.CallbackInfo.NonPresetValue,
                                                             scope.CallbackInfo.Path, scope.CallbackInfo.Index },
                             DLR.Expression.Assign(value, dependencyEvaulate),
-                            DLR.Expression.Assign(scope.CallbackInfo.Path, DLR.Expression.Constant(Utils.ANull())),
-                            DLR.Expression.Assign(scope.CallbackInfo.Index, DLR.Expression.Constant(Utils.ANull())),
+                            DLR.Expression.Assign(scope.CallbackInfo.Path, anullExpression /* DLR.Expression.Constant(Utils.ANull())*/),
+                            DLR.Expression.Assign(scope.CallbackInfo.Index, anullExpression /* DLR.Expression.Constant(Utils.ANull())*/),
                             DLR.Expression.Assign(
                                 scope.CallbackInfo.NonPresetValue,
                                 DLR.Expression.Condition(

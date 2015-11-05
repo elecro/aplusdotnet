@@ -132,30 +132,53 @@ namespace AplusCore.Compiler.AST
 
         public override DLR.Expression Generate(AplusScope scope)
         {
-            AType result;
+            DLR.Expression result;
             // NOTE: do we need to generate this? most Constants will be encapsulated in ConstantList
             switch (this.type)
             {
                 case ConstantType.CharacterConstant:
-                    result = Runtime.Helpers.BuildString(this.AsString);
+                    result = DLR.Expression.Call(
+                                typeof(Runtime.Helpers).GetMethod("BuildString"),
+                                DLR.Expression.Constant(this.AsString)
+                            );
                     break;
 
                 case ConstantType.Null:
-                    result = Utils.ANull();
+                    result = DLR.Expression.Call(typeof(Utils).GetMethod("ANull", new Type[] { }));
                     break;
 
                 case ConstantType.Integer:
-                    result = this.AsNumericAType;
+                    AType value = this.AsNumericAType;
+                    if (value.Type == ATypes.AInteger)
+                    {
+                        result = DLR.Expression.Call(
+                                    typeof(AInteger).GetMethod("Create", new Type[] { typeof(int) }),
+                                    DLR.Expression.Constant(value.asInteger)
+                                );
+                    }
+                    else
+                    {
+                        result = DLR.Expression.Call(
+                                 typeof(AFloat).GetMethod("Create", new Type[] { typeof(double) }),
+                                 DLR.Expression.Constant(value.asInteger)
+                             );
+                    }
                     break;
 
                 case ConstantType.NegativeInfinity:
                 case ConstantType.PositiveInfinity:
                 case ConstantType.Double:
-                    result = AFloat.Create(this.AsFloat);
+                    result = result = DLR.Expression.Call(
+                                 typeof(AFloat).GetMethod("Create", new Type[] { typeof(double) }),
+                                 DLR.Expression.Constant(this.AsFloat)
+                             );
                     break;
 
                 case ConstantType.Symbol:
-                    result = ASymbol.Create(this.AsString);
+                    result = result = DLR.Expression.Call(
+                                 typeof(ASymbol).GetMethod("Create"),
+                                 DLR.Expression.Constant(this.AsString)
+                             );
                     break;
 
                 case ConstantType.Undefined:
@@ -164,7 +187,7 @@ namespace AplusCore.Compiler.AST
                     throw new Exception("Should Not reach this point!..");
             }
 
-            return DLR.Expression.Constant(result, typeof(AType));
+            return result;
         }
 
         #endregion

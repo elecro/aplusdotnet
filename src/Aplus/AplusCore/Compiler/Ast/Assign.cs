@@ -374,14 +374,16 @@ namespace AplusCore.Compiler.AST
              * in any case we will result y
              */
 
+            DLR.Expression anullExpression = DLR.Expression.Call(typeof(Utils).GetMethod("ANull", new Type[] { }));
+
             DLR.Expression blockedResult =
                 DLR.Expression.Block(
                     new DLR.ParameterExpression[] { value, scope.AssignDone,
                         scope.CallbackInfo.QualifiedName, scope.CallbackInfo.Index,
                         scope.CallbackInfo.Path,scope.CallbackInfo.NonPresetValue },
                     DLR.Expression.Assign(scope.CallbackInfo.QualifiedName, DLR.Expression.Constant("")),
-                    DLR.Expression.Assign(scope.CallbackInfo.Index, DLR.Expression.Constant(Utils.ANull())),
-                    DLR.Expression.Assign(scope.CallbackInfo.Path, DLR.Expression.Constant(Utils.ANull())),
+                    DLR.Expression.Assign(scope.CallbackInfo.Index, anullExpression /*DLR.Expression.Constant(Utils.ANull())*/),
+                    DLR.Expression.Assign(scope.CallbackInfo.Path, anullExpression),
                     DLR.Expression.Assign(scope.AssignDone, DLR.Expression.Constant(true, typeof(bool))),
                     DLR.Expression.Assign(scope.CallbackInfo.NonPresetValue, DLR.Expression.Constant(null, typeof(AType))),
                     DLR.Expression.Assign(value, this.expression.Generate(scope)),

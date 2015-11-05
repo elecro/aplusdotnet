@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 using AplusCore.Runtime;
 using AplusCore.Types;
@@ -138,6 +139,7 @@ namespace AplusCore.Compiler.AST
 
         internal static DLR.Expression BuildInvoke(Aplus runtime, ICollection<DLR.Expression> callArguments)
         {
+#if DLLMODE
             DLR.Expression result = DLR.Expression.Convert(
                 DLR.Expression.Dynamic(
                     runtime.InvokeBinder(new DYN.CallInfo(callArguments.Count - 1)),
@@ -146,6 +148,17 @@ namespace AplusCore.Compiler.AST
                 ),
                 typeof(AType)
             );
+#else
+            DLR.Expression result = DLR.Expression.Call(
+                typeof(Helpers).GetMethod("Invoker"),
+                callArguments.ElementAt(0),
+                callArguments.ElementAt(1),
+                DLR.Expression.NewArrayInit(
+                    typeof(AType),
+                    callArguments.Where((item, i) => i > 1).ToArray()
+                )
+            );
+#endif
             return result;
         }
 

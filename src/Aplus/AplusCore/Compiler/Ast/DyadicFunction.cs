@@ -234,8 +234,11 @@ namespace AplusCore.Compiler.AST
                     throw new ParseException(String.Format("Not supported Dyadic function[{0}]", this.token));
                 }
 
+                DLR.Expression newMethod = DLR.Expression.New(method.GetType().GetConstructor(new Type[] {}));
                 result = DLR.Expression.Call(
-                    DLR.Expression.Constant(method),
+                    //DLR.Expression.
+                    newMethod,
+                    //DLR.Expression.Constant(method),
                     method.GetType().GetMethod("Execute"),
                     right, left, environment
                 );

@@ -2,6 +2,11 @@
 
 using AplusCore.Runtime.Function.Monadic;
 using AplusCore.Types;
+using System.Dynamic;
+using System;
+using Microsoft.Scripting.Runtime;
+using System.Reflection;
+using Microsoft.Scripting;
 
 namespace AplusCore.Runtime
 {
@@ -103,5 +108,73 @@ namespace AplusCore.Runtime
             throw new Error.Domain("Condition fail");
         }
 
+        public static AType GetVariable(IDynamicMetaObjectProvider metaObject, string context, string name)
+        {
+            Scope scope = metaObject as Scope;
+            if (scope != null)
+            {
+                try
+                {
+                    return scope.Storage[context][name];
+                }
+                catch (KeyNotFoundException)
+                {
+                    string message = String.Format("GetMemberBinder: cannot bind member '{0}' on object '{1}'",
+                             context, name);
+
+                    throw new Error.Value(message);
+                }
+            }
+
+            return Utils.ANull();
+        }
+
+
+        public static AType SetVariable(IDynamicMetaObjectProvider metaObject, string context, string name, AType value)
+        {
+            Scope scope = metaObject as Scope;
+            if (scope != null)
+            {
+                dynamic contextStore;
+                try
+                {
+                    contextStore = scope.Storage[context];
+                }
+                catch (KeyNotFoundException)
+                {
+                    contextStore = scope.Storage[context] = new ScopeStorage();
+                }
+
+                contextStore[name] = value;
+            }
+
+            return value;
+        }
+
+        public static AType ConvertToAType(object obj)
+        {
+            if (obj is AType)
+            {
+                return (AType)obj;
+            }
+
+            throw new NotImplementedException();
+        }
+
+        public static AType Invoker(AType func, Aplus runtime, AType[] callArgs)
+        {
+            List<object> args = new List<object>();
+            args.Add(runtime);
+            args.AddRange(callArgs);
+
+            object function = ((AFunc)func.Data).Method;
+            Type functionType = function.GetType();
+            MethodInfo methodInfo = functionType.GetMethod("Invoke");
+
+            object result = methodInfo.Invoke(function, args.ToArray());
+            //object result = ((Func<Aplus, AType, AType>)((AFunc)func.Data).Method)(runtime, callArgs[0]);
+
+            return (AType)result;
+        }
     }
 }

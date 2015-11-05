@@ -41,9 +41,13 @@ namespace AplusCore.Compiler
         /// <param name="expression">Expression to cast.</param>
         /// <param name="runtime"></param>
         /// <returns></returns>
-        internal static DLR.DynamicExpression ToAType(this DLR.Expression expression, Aplus runtime)
+        internal static DLR.Expression ToAType(this DLR.Expression expression, Aplus runtime)
         {
+#if DLLMODE
             return DLR.Expression.Dynamic(runtime.ConvertBinder(typeof(AType)), typeof(AType), expression);
+#else
+            return DLR.Expression.Call(typeof(Helpers).GetMethod("ConvertToAType"), expression);
+#endif
         }
 
         /// <summary>
