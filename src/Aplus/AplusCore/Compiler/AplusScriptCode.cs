@@ -29,7 +29,7 @@ namespace AplusCore.Compiler
             : base(sourceunit)
         {
             this.aplus = aplus;
-            this.lambda = ParseToLambda(code.Trim());
+            this.lambda = ParseToLambda(this.aplus, code.Trim());
         }
 
         #endregion
@@ -56,21 +56,21 @@ namespace AplusCore.Compiler
 
         #region Code generator
 
-        public DLR.Expression<System.Func<Runtime.Aplus, AType>> ParseToLambda(string code)
+        public static DLR.Expression<System.Func<Runtime.Aplus, AType>> ParseToLambda(Aplus aplus, string code)
         {
-            AplusScope scope = new AplusScope(null, "__top__", this.aplus,
+            AplusScope scope = new AplusScope(null, "__top__", aplus,
                 DLR.Expression.Parameter(typeof(Aplus), "__aplusRuntime__"),
                 DLR.Expression.Parameter(typeof(DYN.IDynamicMetaObjectProvider), "__module__")
             );
 
-            FunctionInformation funcionInfo = new FunctionInformation(this.aplus.CurrentContext);
-            if (this.aplus.Context != null)
+            FunctionInformation funcionInfo = new FunctionInformation(aplus.CurrentContext);
+            if (aplus.Context != null)
             {
-                funcionInfo.LoadInfo((this.aplus.Context as Scope).Storage as ScopeStorage);
+                funcionInfo.LoadInfo((aplus.Context as Scope).Storage as ScopeStorage);
             }
 
             DLR.Expression codebody = null;
-            AST.Node tree = Compiler.Parse.String(code, this.aplus.LexerMode, funcionInfo);
+            AST.Node tree = Compiler.Parse.String(code, aplus.LexerMode, funcionInfo);
 
             if (tree == null)
             {
