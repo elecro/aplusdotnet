@@ -620,6 +620,7 @@ namespace AplusCore.Compiler.AST
 
             if (target.IndexExpression == null)
             {
+#if DLLMODE
                 result = DLR.Expression.Dynamic(
                     scope.GetRuntime().SetIndexBinder(new DYN.CallInfo(0)),
                     typeof(object),
@@ -627,6 +628,14 @@ namespace AplusCore.Compiler.AST
                     DLR.Expression.Constant(null),
                     value
                 );
+#else
+                result = DLR.Expression.Call(
+                    Helpers.SetIndexerMethod,
+                    target.Item.Generate(scope),
+                    DLR.Expression.Constant(null),
+                    value
+                );
+#endif
             }
             else
             {
@@ -659,7 +668,7 @@ namespace AplusCore.Compiler.AST
                         DLR.Expression.Assign(
                             scope.CallbackInfo.Index,
                             DLR.Expression.Call(
-                                typeof(Tools).GetMethod("ConvertATypeListToAType", BindingFlags.NonPublic | BindingFlags.Static),
+                                Tools.ConvertATypeListToATypeMethod,
                                 indexerParam
                             )
                         ),
@@ -683,6 +692,7 @@ namespace AplusCore.Compiler.AST
                         DLR.Expression.IfThen(
                             scope.AssignDone,
                             DLR.Expression.Block(
+#if DLLMODE
                                 DLR.Expression.Dynamic(
                                     scope.GetRuntime().SetIndexBinder(new System.Dynamic.CallInfo(target.IndexExpression.Length)),
                                     typeof(object),
@@ -690,6 +700,14 @@ namespace AplusCore.Compiler.AST
                                     indexerParam,
                                     value
                                 ),
+#else
+                                DLR.Expression.Call(
+                                    Helpers.SetIndexerMethod,
+                                    target.Item.Generate(scope),
+                                    indexerParam,
+                                    value
+                                ),
+#endif
                                 DLR.Expression.Assign(temp, value),
                                 callback
                             )
@@ -1235,7 +1253,7 @@ namespace AplusCore.Compiler.AST
                         DLR.Expression.Assign(
                             scope.CallbackInfo.Index,
                             DLR.Expression.Call(
-                                typeof(Tools).GetMethod("ConvertATypeListToAType", BindingFlags.NonPublic | BindingFlags.Static),
+                                Tools.ConvertATypeListToATypeMethod,
                                 indexes
                             )
                         ),

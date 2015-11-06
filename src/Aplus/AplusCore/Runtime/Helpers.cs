@@ -296,10 +296,32 @@ namespace AplusCore.Runtime
             {
                 if (target.Rank < indexerParam.Count)
                 {
-                    throw new Error.Rank("Invalid indexer arguments for value");
+                    throw new Error.Rank("Invalid get indexer arguments for target value");
                 }
 
                 return target[indexerParam];
+            }
+        }
+
+        internal static MethodInfo SetIndexerMethod = typeof(Helpers).GetMethod("SetIndexer");
+        public static AType SetIndexer(AType target, List<AType> indexerParam, AType value)
+        {
+            if (indexerParam.Count == 0)
+            {
+                Utils.PerformAssign(target, value);
+
+                return value;
+            }
+            else
+            {
+                if (target.Rank < indexerParam.Count)
+                {
+                    throw new Error.Rank("Invalid set indexer arguments for target value");
+                }
+
+                target[indexerParam] = value;
+
+                return value;
             }
         }
 

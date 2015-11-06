@@ -5,10 +5,11 @@ using AplusCore.Types;
 using AplusCore.Types.MemoryMapped;
 
 using DLR = System.Linq.Expressions;
+using System.Reflection;
 
 namespace AplusCore.Compiler
 {
-    class Tools
+    public class Tools
     {
         /// <summary>
         /// If the argument is Memory-mapped file and the mode is read only, we clone it.
@@ -52,7 +53,9 @@ namespace AplusCore.Compiler
             );
         }
 
-        internal static AType ConvertATypeListToAType(List<AType> list)
+        internal static MethodInfo ConvertATypeListToATypeMethod =
+            typeof(Tools).GetMethod("ConvertATypeListToAType");
+        public static AType ConvertATypeListToAType(List<AType> list)
         {
             AType result;
             AType indexers = AArray.Create(ATypes.AArray);
