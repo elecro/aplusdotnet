@@ -1180,12 +1180,16 @@ namespace AplusCore.Compiler.AST
             DLR.ParameterExpression environment = scope.GetRuntimeExpression();
             var execute = typeof(AbstractMonadicFunction).GetMethod("Execute");
 
+
+            DLR.MemberExpression interval = typeof(MonadicFunctionInstance).Field("Interval");
+            DLR.MemberExpression shape = typeof(MonadicFunctionInstance).Field("Shape");
+
             // (iota rho x)
             DLR.Expression indexes = DLR.Expression.Call(
-                DLR.Expression.Constant(MonadicFunctionInstance.Interval),
+                interval,
                 execute,
                 DLR.Expression.Call(
-                    DLR.Expression.Constant(MonadicFunctionInstance.Shape),
+                    shape,
                     execute,
                     argument,
                     environment

@@ -3,8 +3,12 @@
 using AplusCore.Compiler.Grammar;
 using AplusCore.Runtime.Function.Monadic;
 using AplusCore.Types;
+using AplusCore.Compiler;
 
 using DLR = System.Linq.Expressions;
+
+using System.Reflection;
+using System.Linq;
 
 namespace AplusCore.Compiler.AST
 {
@@ -120,9 +124,10 @@ namespace AplusCore.Compiler.AST
                     throw new ParseException(String.Format("Not supported Monadic function[{0}]", this.token));
                 }
 
+                DLR.MemberExpression methodExpression = typeof(MonadicFunctionInstance).Field(this.token.Type.ToString());
                 result = DLR.Expression.Call(
-                    DLR.Expression.Constant(method),
-                    method.GetType().GetMethod("Execute"),
+                    methodExpression,
+                    typeof(AbstractMonadicFunction).GetMethod("Execute"),
                     argument,
                     scope.GetRuntimeExpression()
                 );

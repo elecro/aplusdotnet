@@ -4,6 +4,8 @@ using AplusCore.Runtime;
 using AplusCore.Types;
 
 using DLR = System.Linq.Expressions;
+using AplusCore.Runtime.Function.Monadic;
+using System;
 
 namespace AplusCore.Compiler
 {
@@ -59,6 +61,15 @@ namespace AplusCore.Compiler
         internal static DLR.UnaryExpression To<T>(this DLR.Expression target)
         {
             return DLR.Expression.Convert(target, typeof(T));
+        }
+
+
+        internal static DLR.MemberExpression Field(this Type type, string name)
+        {
+            return DLR.Expression.Field(
+                null,
+                type.GetField(name, BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.IgnoreCase)
+            );
         }
     }
 }
