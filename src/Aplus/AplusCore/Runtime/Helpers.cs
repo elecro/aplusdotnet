@@ -108,14 +108,18 @@ namespace AplusCore.Runtime
             throw new Error.Domain("Condition fail");
         }
 
+        #region Binder replacements
+
+        internal static MethodInfo GetVariableMethod = typeof(Helpers).GetMethod("GetVariable");
         public static AType GetVariable(IDynamicMetaObjectProvider metaObject, string context, string name)
         {
             Scope scope = metaObject as Scope;
             if (scope != null)
             {
+                object result;
                 try
                 {
-                    return scope.Storage[context][name];
+                    result = scope.Storage[context][name];
                 }
                 catch (KeyNotFoundException)
                 {
@@ -124,12 +128,14 @@ namespace AplusCore.Runtime
 
                     throw new Error.Value(message);
                 }
+
+                return ConvertToAType(result);
             }
 
             return Utils.ANull();
         }
 
-
+        internal static MethodInfo SetVariableMethod = typeof(Helpers).GetMethod("SetVariable");
         public static AType SetVariable(IDynamicMetaObjectProvider metaObject, string context, string name, AType value)
         {
             Scope scope = metaObject as Scope;
@@ -151,6 +157,7 @@ namespace AplusCore.Runtime
             return value;
         }
 
+        internal static MethodInfo ConvertToATypeMethod = typeof(Helpers).GetMethod("ConvertToAType");
         public static AType ConvertToAType(object obj)
         {
             if (obj is AType)
@@ -161,6 +168,7 @@ namespace AplusCore.Runtime
             throw new NotImplementedException();
         }
 
+        internal static MethodInfo InvokeMethod = typeof(Helpers).GetMethod("Invoker");
         public static AType Invoker(AType func, Aplus runtime, AType[] callArgs)
         {
             List<object> args = new List<object>();
@@ -176,5 +184,8 @@ namespace AplusCore.Runtime
 
             return (AType)result;
         }
+
+        #endregion
+
     }
 }

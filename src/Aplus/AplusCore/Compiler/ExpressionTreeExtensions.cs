@@ -46,7 +46,7 @@ namespace AplusCore.Compiler
 #if DLLMODE
             return DLR.Expression.Dynamic(runtime.ConvertBinder(typeof(AType)), typeof(AType), expression);
 #else
-            return DLR.Expression.Call(typeof(Helpers).GetMethod("ConvertToAType"), expression);
+            return DLR.Expression.Call(Helpers.ConvertToATypeMethod, expression);
 #endif
         }
 

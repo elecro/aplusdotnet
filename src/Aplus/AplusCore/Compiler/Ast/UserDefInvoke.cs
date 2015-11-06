@@ -150,7 +150,7 @@ namespace AplusCore.Compiler.AST
             );
 #else
             DLR.Expression result = DLR.Expression.Call(
-                typeof(Helpers).GetMethod("Invoker"),
+                Helpers.InvokeMethod,
                 callArguments.ElementAt(0),
                 callArguments.ElementAt(1),
                 DLR.Expression.NewArrayInit(

@@ -44,7 +44,12 @@ namespace AplusCore.Compiler
             );
 #else
             DLR.Expression variableAccess =
-                DLR.Expression.Call(typeof(Helpers).GetMethod("GetVariable"), variableContainer, DLR.Expression.Constant(contextParts[0]), DLR.Expression.Constant(contextParts[1]));
+                DLR.Expression.Call(
+                    Helpers.GetVariableMethod,
+                    variableContainer,
+                    DLR.Expression.Constant(contextParts[0]),
+                    DLR.Expression.Constant(contextParts[1])
+                );
 #endif
             return variableAccess;
         }
@@ -99,7 +104,13 @@ namespace AplusCore.Compiler
             );
 #else
             DLR.Expression setVariable =
-                DLR.Expression.Call(typeof(Helpers).GetMethod("SetVariable"), variableContainer, DLR.Expression.Constant(contextParts[0]), DLR.Expression.Constant(contextParts[1]), value);
+                DLR.Expression.Call(
+                    Helpers.SetVariableMethod,
+                    variableContainer,
+                    DLR.Expression.Constant(contextParts[0]),
+                    DLR.Expression.Constant(contextParts[1]),
+                    value
+                );
 #endif
             return setVariable;
         }
