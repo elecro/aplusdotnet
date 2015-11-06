@@ -632,7 +632,7 @@ namespace AplusCore.Compiler.AST
                 result = DLR.Expression.Call(
                     Helpers.SetIndexerMethod,
                     target.Item.Generate(scope),
-                    DLR.Expression.Constant(null),
+                    DLR.Expression.New(typeof(List<AType>)),
                     value
                 );
 #endif
