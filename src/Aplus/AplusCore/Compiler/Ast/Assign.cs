@@ -1092,6 +1092,7 @@ namespace AplusCore.Compiler.AST
                         scope.CallbackInfo.QualifiedName,
                         callbackParameter
                     ),
+#if DLLMODE
                     DLR.Expression.Dynamic(
                 // TODO: do not instantiate the binder here
                         new Runtime.Binder.CallbackBinder(),
@@ -1102,6 +1103,16 @@ namespace AplusCore.Compiler.AST
                         scope.CallbackInfo.Index,
                         scope.CallbackInfo.Path
                     ).To<AType>(),
+#else
+                    DLR.Expression.Call(
+                        Helpers.CallbackMethod,
+                        callbackParameter,
+                        scope.GetRuntimeExpression(),
+                        valueParam,
+                        scope.CallbackInfo.Index,
+                        scope.CallbackInfo.Path
+                    ),
+#endif
                     (DLR.Expression)valueParam.To<AType>()
                 )
             );
@@ -1128,6 +1139,7 @@ namespace AplusCore.Compiler.AST
                         scope.CallbackInfo.QualifiedName,
                         callbackParameter
                     ),
+#if DLLMODE
                     DLR.Expression.Dynamic(
                 // TODO: do not instantiate the binder here
                         new Runtime.Binder.CallbackBinder(),
@@ -1138,6 +1150,16 @@ namespace AplusCore.Compiler.AST
                         scope.CallbackInfo.Index,
                         scope.CallbackInfo.Path
                     )
+#else
+                    DLR.Expression.Call(
+                        Helpers.CallbackMethod,
+                        callbackParameter,
+                        scope.GetRuntimeExpression(),
+                        valueParam,
+                        scope.CallbackInfo.Index,
+                        scope.CallbackInfo.Path
+                    )
+#endif
                 )
             );
             return callback;

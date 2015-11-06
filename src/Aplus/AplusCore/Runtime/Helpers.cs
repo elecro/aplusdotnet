@@ -4,9 +4,11 @@ using AplusCore.Runtime.Function.Monadic;
 using AplusCore.Types;
 using System.Dynamic;
 using System;
+using System.Linq;
 using Microsoft.Scripting.Runtime;
 using System.Reflection;
 using Microsoft.Scripting;
+using System.Diagnostics;
 
 namespace AplusCore.Runtime
 {
@@ -171,18 +173,111 @@ namespace AplusCore.Runtime
         internal static MethodInfo InvokeMethod = typeof(Helpers).GetMethod("Invoker");
         public static AType Invoker(AType func, Aplus runtime, AType[] callArgs)
         {
+            Debug.Assert(func is AReference);
+
+            AFunc afunction = func.Data as AFunc;
+
+            if (afunction == null)
+            {
+                // We are trying to invoke a non-method which is not possible, throw error
+                throw new Error.NonFunction(func.ToString());
+            }
+
+            // Get the callable method
+            object function = afunction.Method;
+            Type functionType = function.GetType();
+            MethodInfo methodInfo = functionType.GetMethod("Invoke");
+
+            // Build call arguments
+            // First we add the basic arguments we have and then extend it if needed
             List<object> args = new List<object>();
             args.Add(runtime);
             args.AddRange(callArgs);
 
-            object function = ((AFunc)func.Data).Method;
+            if (afunction.IsBuiltin)
+            {
+                switch (callArgs.Length)
+                {
+                    case 1:
+                        args.Add(null);
+                        break;
+                    case 2:
+                        break;
+                    default:
+                        throw new Error.Valence(afunction.Name);
+                }
+            }
+            else
+            {
+                if (afunction.Valence != callArgs.Length + 1)
+                {
+                    throw new Error.Valence(afunction.Name);
+                }
+            }
+
+            try
+            {
+                object result = methodInfo.Invoke(function, args.ToArray());
+                return (AType)result;
+            }
+            catch (TargetInvocationException e)
+            {
+                if (e.InnerException is Error)
+                {
+                    // we need to forward the runtime Errors
+                    throw e.InnerException;
+                }
+
+                throw e;
+            }
+        }
+
+        internal static MethodInfo CallbackMethod = typeof(Helpers).GetMethod("Callback");
+        public static AType Callback(Callback.CallbackItem callbackItem, Aplus runtime, AType valueParam, AType index, AType path)
+        {
+            AFunc callbackFunction = callbackItem.CallbackFunction.Data as AFunc;
+
+            if (callbackFunction == null)
+            {
+                throw new Error.NonFunction(callbackItem.VariableName);
+            }
+
+            // Get the callable method
+            object function = callbackFunction.Method;
             Type functionType = function.GetType();
             MethodInfo methodInfo = functionType.GetMethod("Invoke");
 
-            object result = methodInfo.Invoke(function, args.ToArray());
-            //object result = ((Func<Aplus, AType, AType>)((AFunc)func.Data).Method)(runtime, callArgs[0]);
+            // Build argument list
+            IEnumerable<AType> baseArgs = new AType[] {
+                callbackItem.StaticData,        // static data
+                valueParam,                     // new value
+                index,                          // index/set of indices
+                path,                           // path (left argument of pick)
+                callbackItem.Context,           // context of the global variable
+                callbackItem.UnqualifiedName   // name of the global variable
+            }.Where((item, i) => i < callbackFunction.Valence - 1).Reverse();
 
-            return (AType)result;
+            List<object> args = new List<object>();
+            args.Add(runtime);
+            args.AddRange(baseArgs);
+
+            try
+            {
+                object result = methodInfo.Invoke(function, args.ToArray());
+                return (AType)result;
+            }
+            catch (TargetInvocationException e)
+            {
+                if (e.InnerException is Error)
+                {
+                    // we need to forward the runtime Errors
+                    throw e.InnerException;
+                }
+
+                throw e;
+            }
+
+            throw new NotImplementedException();
         }
 
         #endregion

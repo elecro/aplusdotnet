@@ -228,11 +228,7 @@ namespace AplusCore.Compiler.AST
             DLR.Expression callback = AST.Assign.BuildCallbackCall(scope, value);
 
             DLR.Expression anullExpression = DLR.Expression.Call(typeof(Utils).GetMethod("ANull", new Type[] { }));
-#if DLLMODE
             DLR.Expression presetCallback = AST.Assign.BuildPresetCallbackCall(scope, value);
-#else
-            DLR.Expression presetCallback = anullExpression;
-#endif
 
             string qualifiedName = this.BuildQualifiedName(scope.GetRuntime().CurrentContext);
 
