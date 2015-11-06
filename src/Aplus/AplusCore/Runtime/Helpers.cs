@@ -166,6 +166,10 @@ namespace AplusCore.Runtime
             {
                 return (AType)obj;
             }
+            else if (obj is int)
+            {
+                return AInteger.Create((int)obj);
+            }
 
             throw new NotImplementedException();
         }
