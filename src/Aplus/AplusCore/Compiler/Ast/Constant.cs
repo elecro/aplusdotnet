@@ -168,17 +168,17 @@ namespace AplusCore.Compiler.AST
                 case ConstantType.NegativeInfinity:
                 case ConstantType.PositiveInfinity:
                 case ConstantType.Double:
-                    result = result = DLR.Expression.Call(
-                                 typeof(AFloat).GetMethod("Create", new Type[] { typeof(double) }),
-                                 DLR.Expression.Constant(this.AsFloat)
-                             );
+                    result = DLR.Expression.Call(
+                        typeof(AFloat).GetMethod("Create", new Type[] { typeof(double) }),
+                        DLR.Expression.Constant(this.AsFloat)
+                    );
                     break;
 
                 case ConstantType.Symbol:
-                    result = result = DLR.Expression.Call(
-                                 typeof(ASymbol).GetMethod("Create"),
-                                 DLR.Expression.Constant(this.AsString)
-                             );
+                    result = DLR.Expression.Call(
+                        typeof(ASymbol).GetMethod("Create"),
+                        DLR.Expression.Constant(this.AsString)
+                    );
                     break;
 
                 case ConstantType.Undefined:
