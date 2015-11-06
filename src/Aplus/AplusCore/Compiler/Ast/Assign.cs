@@ -1239,12 +1239,20 @@ namespace AplusCore.Compiler.AST
                                 indexes
                             )
                         ),
+#if DLLMODE
                         DLR.Expression.Dynamic(
                             scope.GetRuntime().GetIndexBinder(new DYN.CallInfo(1)),
                             typeof(object),
                             raveledRight,
                             indexes
                         )
+#else
+                        DLR.Expression.Call(
+                            Helpers.GetIndexerMethod,
+                            raveledRight,
+                            indexes
+                        )
+#endif
                     ),
                     typeof(AType)
                 );

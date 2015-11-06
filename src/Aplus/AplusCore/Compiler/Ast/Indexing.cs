@@ -90,24 +90,42 @@ namespace AplusCore.Compiler.AST
                             DLR.Expression.NewArrayInit(typeof(AType), indexerValues)
                         )
                     ),
+#if DLLMODE
                     DLR.Expression.Dynamic(
                         scope.GetRuntime().GetIndexBinder(new DYN.CallInfo(indexerValues.Count())),
                         typeof(object),
                         this.item.Generate(scope),
                         indexerParam
                     )
+#else
+                    DLR.Expression.Call(
+                        Helpers.GetIndexerMethod,
+                        this.item.Generate(scope),
+                        indexerParam
+                    )
+#endif
                 );
             }
             else
             {
                 // in case of: a[];
+#if DLLMODE
                 result =
+
                     DLR.Expression.Dynamic(
                         scope.GetRuntime().GetIndexBinder(new DYN.CallInfo(0)),
                         typeof(object),
                         this.item.Generate(scope),
                         DLR.Expression.Constant(null)
                     );
+#else
+                result =
+                    DLR.Expression.Call(
+                        Helpers.GetIndexerMethod,
+                        this.item.Generate(scope),
+                        DLR.Expression.New(typeof(List<AType>))
+                    );
+#endif
             }
 
             return result.To<AType>();

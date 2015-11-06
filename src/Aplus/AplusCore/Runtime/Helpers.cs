@@ -280,6 +280,25 @@ namespace AplusCore.Runtime
             throw new NotImplementedException();
         }
 
+        internal static MethodInfo GetIndexerMethod = typeof(Helpers).GetMethod("GetIndexer");
+        public static AType GetIndexer(AType target, List<AType> indexerParam)
+        {
+            if (indexerParam.Count == 0)
+            {
+                // In case of 'target[]'
+                return target;
+            }
+            else
+            {
+                if (target.Rank < indexerParam.Count)
+                {
+                    throw new Error.Rank("Invalid indexer arguments for value");
+                }
+
+                return target[indexerParam];
+            }
+        }
+
         #endregion
 
     }
