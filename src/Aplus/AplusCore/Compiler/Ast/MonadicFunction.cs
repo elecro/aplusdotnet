@@ -124,9 +124,10 @@ namespace AplusCore.Compiler.AST
                     throw new ParseException(String.Format("Not supported Monadic function[{0}]", this.token));
                 }
 
-                DLR.MemberExpression methodExpression = typeof(MonadicFunctionInstance).Field(this.token.Type.ToString());
+                //DLR.MemberExpression methodExpression = typeof(MonadicFunctionInstance).Field(this.token.Type.ToString());
+                DLR.Expression newMethod = DLR.Expression.New(method.GetType().GetConstructor(new Type[] { }));
                 result = DLR.Expression.Call(
-                    methodExpression,
+                    newMethod,
                     typeof(AbstractMonadicFunction).GetMethod("Execute"),
                     argument,
                     scope.GetRuntimeExpression()
