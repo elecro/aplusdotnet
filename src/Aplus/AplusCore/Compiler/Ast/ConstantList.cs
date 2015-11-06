@@ -95,14 +95,7 @@ namespace AplusCore.Compiler.AST
                 if (useFloat)
                 {
                     type = ATypes.AFloat;
-                    foreach (Constant item in this.list)
-                    {
-                        args.Add(DLR.Expression.Call(
-                            typeof(AFloat).GetMethod("Create", new Type[] { typeof(double) }),
-                            DLR.Expression.Constant(item.AsFloat)
-                            )
-                        );
-                    }
+                    BuildFloatArgs(args);
                 }
                 else
                 {
@@ -117,7 +110,7 @@ namespace AplusCore.Compiler.AST
                     this.type == ConstantType.NegativeInfinity)
             {
                 type = ATypes.AFloat;
-                args.AddRange(this.list.Select(item => item.Generate(scope)));
+                BuildFloatArgs(args);
             }
             else if (this.type == ConstantType.Symbol)
             {
@@ -141,6 +134,18 @@ namespace AplusCore.Compiler.AST
 
             return result;
 
+        }
+
+        private void BuildFloatArgs(List<DLR.Expression> args)
+        {
+            foreach (Constant item in this.list)
+            {
+                args.Add(DLR.Expression.Call(
+                    typeof(AFloat).GetMethod("Create", new Type[] { typeof(double) }),
+                    DLR.Expression.Constant(item.AsFloat)
+                    )
+                );
+            }
         }
 
         #endregion
