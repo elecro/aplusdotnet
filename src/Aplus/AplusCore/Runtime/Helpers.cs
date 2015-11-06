@@ -159,6 +159,28 @@ namespace AplusCore.Runtime
             return value;
         }
 
+        internal static MethodInfo GetVariableFunctionMethod = typeof(Helpers).GetMethod("GetVariableFunction");
+        public static object GetVariableFunction(IDictionary<string, object> functionScope, string name)
+        {
+            try
+            {
+                return functionScope[name];
+            }
+            catch (KeyNotFoundException)
+            {
+                string message = String.Format("Can't find {0} in function scope", name);
+
+                throw new Error.Value(message);
+            }
+        }
+
+        internal static MethodInfo SetVariableFunctionMethod = typeof(Helpers).GetMethod("SetVariableFunction");
+        public static object SetVariableFunction(IDictionary<string, object> functionScope, string name, object value)
+        {
+            functionScope[name] = value;
+            return value;
+        }
+
         internal static MethodInfo ConvertToATypeMethod = typeof(Helpers).GetMethod("ConvertToAType");
         public static AType ConvertToAType(object obj)
         {

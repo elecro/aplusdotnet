@@ -137,23 +137,38 @@ namespace AplusCore.Compiler.AST
                             typeof(IDictionary<string, object>).GetMethod("ContainsKey"),
                             DLR.Expression.Constant(this.variableName)
                         ),
+#if DLLMODE
                         // True case:
                         DLR.Expression.Dynamic(
                             runtime.GetMemberBinder(this.variableName),
                             typeof(object),
                             variableContainer
                         ),
+#else
+                        DLR.Expression.Call(
+                            Helpers.GetVariableFunctionMethod,
+                            variableContainer,
+                            DLR.Expression.Constant(this.variableName)
+                        ),
+#endif
                         // False case:
                         BuildGlobalAccessor(scope, runtime, parentVariableContainer, contextParts),
                         // resulting type
                         typeof(object)
                     );
 
+#if DLLMODE
                     result = DLR.Expression.Dynamic(
                         runtime.ConvertBinder(typeof(AType)),
                         typeof(AType),
                         getVariable
                     );
+#else
+                    result = DLR.Expression.Call(
+                        Helpers.ConvertToATypeMethod,
+                        getVariable
+                    );
+#endif
 
                     return result;
                 }

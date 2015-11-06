@@ -950,12 +950,21 @@ namespace AplusCore.Compiler.AST
                                     needCallback
                                     ? DLR.Expression.Assign(scope.CallbackInfo.QualifiedName, DLR.Expression.Constant(qualifiedName))
                                     : (DLR.Expression)DLR.Expression.Empty(),
+#if DLLMODE
                                     DLR.Expression.Dynamic(
                                         runtime.SetMemberBinder(target.Name),
                                         typeof(object),
                                         functionScopeParam,
                                         value
                                     ),
+#else
+                                    DLR.Expression.Call(
+                                        Helpers.SetVariableFunctionMethod,
+                                        functionScopeParam,
+                                        DLR.Expression.Constant(target.Name),
+                                        value
+                                    ),
+#endif
                                     value
                                 ),
                                 // did NOT found the variable in the function scope
@@ -976,12 +985,21 @@ namespace AplusCore.Compiler.AST
                                     needCallback
                                     ? DLR.Expression.Assign(scope.CallbackInfo.QualifiedName, DLR.Expression.Constant(qualifiedName))
                                     : (DLR.Expression)DLR.Expression.Empty(),
+#if DLLMODE
                                     DLR.Expression.Dynamic(
                                     runtime.SetMemberBinder(target.Name),
                                     typeof(object),
                                     functionScopeParam,
                                     value
                                     )
+#else
+                                    DLR.Expression.Call(
+                                        Helpers.SetVariableFunctionMethod,
+                                        functionScopeParam,
+                                        DLR.Expression.Constant(target.Name),
+                                        value
+                                    )
+#endif
                                 );
                         }
                         break;
