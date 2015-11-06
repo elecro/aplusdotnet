@@ -160,7 +160,7 @@ namespace AplusCore.Compiler.AST
                     {
                         result = DLR.Expression.Call(
                                  typeof(AFloat).GetMethod("Create", new Type[] { typeof(double) }),
-                                 DLR.Expression.Constant(value.asInteger)
+                                 DLR.Expression.Constant(value.asFloat)
                              );
                     }
                     break;
