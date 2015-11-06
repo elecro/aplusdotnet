@@ -85,55 +85,60 @@ namespace AplusCore.Compiler.AST
                 return this.list.First.Value.Generate(scope);
             }
 
-            AType items = null;
+            ATypes type;
+            List<DLR.Expression> args = new List<DLR.Expression>();
 
             if (this.type == ConstantType.Integer)
             {
-                bool convertToFloat = false;
-                items = AArray.Create(ATypes.AInteger);
-                foreach (Constant item in this.list)
-                {
-                    AType value = item.AsNumericAType;
-                    items.Add(value);
+                bool useFloat = this.list.Any(item => item.AsNumericAType.Type == ATypes.AFloat);
 
-                    if (value.Type == ATypes.AFloat)
+                if (useFloat)
+                {
+                    type = ATypes.AFloat;
+                    foreach (Constant item in this.list)
                     {
-                        convertToFloat = true;
+                        args.Add(DLR.Expression.Call(
+                            typeof(AFloat).GetMethod("Create", new Type[] { typeof(double) }),
+                            DLR.Expression.Constant(item.AsFloat)
+                            )
+                        );
                     }
                 }
-
-                // Convert integer items in previous array to float
-                if (convertToFloat)
+                else
                 {
-                    items.ConvertToFloat();
+                    type = ATypes.AInteger;
+                    args.AddRange(this.list.Select(item => item.Generate(scope)));
                 }
+
             }
             // Treat the Infinite constants same as floats
             else if (this.type == ConstantType.Double ||
                     this.type == ConstantType.PositiveInfinity ||
                     this.type == ConstantType.NegativeInfinity)
             {
-                items = AArray.Create(ATypes.AFloat);
-                foreach (Constant item in this.list)
-                {
-                    items.Add(AFloat.Create(item.AsFloat));
-                }
+                type = ATypes.AFloat;
+                args.AddRange(this.list.Select(item => item.Generate(scope)));
             }
             else if (this.type == ConstantType.Symbol)
             {
-                items = AArray.Create(ATypes.ASymbol);
-                foreach (Constant item in this.list)
-                {
-                    items.Add(ASymbol.Create(item.AsString));
-                }
+                type = ATypes.ASymbol;
+                args.AddRange(this.list.Select(item => item.Generate(scope)));
             }
             else
             {
                 throw new Error.Parse(String.Format("Unknow ConstantType({0}) in current context", this.type));
             }
 
-            DLR.Expression result = DLR.Expression.Constant(items, typeof(AType));
-            // Example: .Constant<AplusCore.Types.AArray`1[AplusCore.Types.AInteger]>(1 2)
+            DLR.Expression result =
+                DLR.Expression.Call(
+                    typeof(AArray).GetMethod("Create", new Type[] { typeof(ATypes), typeof(AType[]) }),
+                    DLR.Expression.Constant(type),
+                    DLR.Expression.NewArrayInit(
+                        typeof(AType),
+                        args
+                    )
+            );
+
             return result;
 
         }
