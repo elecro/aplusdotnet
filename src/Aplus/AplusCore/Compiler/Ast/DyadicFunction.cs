@@ -236,7 +236,6 @@ namespace AplusCore.Compiler.AST
 
                 DLR.Expression newMethod = DLR.Expression.New(method.GetType().GetConstructor(new Type[] {}));
                 result = DLR.Expression.Call(
-                    //DLR.Expression.
                     newMethod,
                     //DLR.Expression.Constant(method),
                     method.GetType().GetMethod("Execute"),
