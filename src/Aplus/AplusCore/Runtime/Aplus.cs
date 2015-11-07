@@ -123,6 +123,12 @@ namespace AplusCore.Runtime
             this.contextLoader = new ContextLoader(this);
         }
 
+        public Aplus()
+            : this(new Scope(), LexerMode.ASCII)
+        {
+            Context = this.dlrglobals;
+        }
+
         #endregion
 
         #region Methods
