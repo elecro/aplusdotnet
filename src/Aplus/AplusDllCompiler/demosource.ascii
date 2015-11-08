@@ -1,0 +1,9 @@
+﻿
+doIt{length; index}: {
+	data := iota length;
+	:= data[index];
+}
+
+tester{index} : {
+	doIt{index * 2; index}
+}
