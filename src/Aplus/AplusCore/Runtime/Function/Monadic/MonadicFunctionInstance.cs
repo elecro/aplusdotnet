@@ -13,7 +13,7 @@ using AplusCore.Runtime.Function.Monadic.Scalar.Miscellaneous;
 
 namespace AplusCore.Runtime.Function.Monadic
 {
-    class MonadicFunctionInstance
+    public class MonadicFunctionInstance
     {
         #region SCALAR
 
