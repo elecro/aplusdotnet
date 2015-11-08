@@ -94,7 +94,8 @@ namespace AplusCore.Compiler.AST
                     DLR.Expression.Goto(
                         returnTarget,
                         DLR.Expression.Call(
-                            DLR.Expression.Constant(DyadicFunctionInstance.Or),
+                            typeof(DyadicFunctionInstance).Field("Or"),
+                            //DLR.Expression.Constant(DyadicFunctionInstance.Or),
                             method,
                             rightParam, leftParam, environment
                         )
@@ -103,7 +104,8 @@ namespace AplusCore.Compiler.AST
                     DLR.Expression.Goto(
                         returnTarget,
                         DLR.Expression.Call(
-                            DLR.Expression.Constant(DyadicFunctionInstance.Cast),
+                            //DLR.Expression.Constant(DyadicFunctionInstance.Cast),
+                            typeof(DyadicFunctionInstance).Field("Cast"),
                             method,
                             rightParam, leftParam, environment
                         )
@@ -113,7 +115,7 @@ namespace AplusCore.Compiler.AST
             else
             {
                 MethodChooser.ConvertToDyadicToken(functionToken);
-                AbstractDyadicFunction dyadic = MethodChooser.GetDyadicMethod(functionToken);
+                DLR.MemberExpression dyadic = MethodChooser.GetDyadicMethod(functionToken);
 
                 if (dyadic != null)
                 {
@@ -121,7 +123,8 @@ namespace AplusCore.Compiler.AST
                         DLR.Expression.Goto(
                             returnTarget,
                             DLR.Expression.Call(
-                                DLR.Expression.Constant(dyadic),
+                                dyadic,
+                                //DLR.Expression.Constant(dyadic),
                                 method,
                                 rightParam,
                                 leftParam,
@@ -151,15 +154,17 @@ namespace AplusCore.Compiler.AST
             DLR.ParameterExpression methodRightArg)
         {
             DLR.Expression result;
-            AbstractMonadicFunction monadic = MethodChooser.GetMonadicMethod(functionToken);
+            DLR.MemberExpression monadic = MethodChooser.GetMonadicMethod(functionToken);
 
             if (monadic != null)
             {
                 result = DLR.Expression.Goto(
                     methodReturnTarget,
                     DLR.Expression.Call(
-                        DLR.Expression.Constant(monadic),
-                        monadic.GetType().GetMethod("Execute"),
+                        monadic,
+                        //DLR.Expression.Constant(monadic),
+                        typeof(AbstractMonadicFunction).GetMethod("Execute"),
+                        //monadic.GetType().GetMethod("Execute"),
                         methodRightArg,
                         methodEnvArg
                     )

@@ -68,7 +68,7 @@ namespace AplusCore.Compiler
         {
             return DLR.Expression.Field(
                 null,
-                type.GetField(name, BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.IgnoreCase)
+                type.GetField(name, BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.IgnoreCase | BindingFlags.Public)
             );
         }
     }

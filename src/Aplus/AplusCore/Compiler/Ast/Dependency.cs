@@ -159,7 +159,11 @@ namespace AplusCore.Compiler.AST
                 DLR.Expression.Block(
                     new DLR.ParameterExpression[] { dependencyScope.ModuleExpression, resultParameter },
                     // Add the local scope's store
-                    DLR.Expression.Assign(dependencyScope.ModuleExpression, DLR.Expression.Constant(new DYN.ExpandoObject())),
+                    DLR.Expression.Assign(
+                        dependencyScope.ModuleExpression,
+                        DLR.Expression.New(typeof(DYN.ExpandoObject).GetConstructor(new Type[] { }))
+                        //DLR.Expression.Constant(new DYN.ExpandoObject())
+                    ),
                     // set AplusEnviroment's function scope reference
                     DLR.Expression.Assign(
                         DLR.Expression.Property(dependencyScope.RuntimeExpression, "FunctionScope"),

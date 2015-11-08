@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 
+using DLR = System.Linq.Expressions;
+
 using AplusCore.Compiler.Grammar;
 using AplusCore.Runtime.Function.Dyadic;
 using AplusCore.Runtime.Function.Monadic;
+using System;
 
 namespace AplusCore.Compiler.AST
 {
@@ -63,135 +66,136 @@ namespace AplusCore.Compiler.AST
         /// Return the A+ native monadic function for the specified monadic token
         /// </summary>
         /// <returns><b>null</b> if no monadic function found</returns>
-        internal static AbstractMonadicFunction GetMonadicMethod(Token token)
+        internal static DLR.MemberExpression GetMonadicMethod(Token token)
         {
+            Type baseT = typeof(MonadicFunctionInstance);
             switch (token.Type)
             {
                 #region Monadic Scalar
 
                 case Tokens.ABSOLUTEVALUE:
-                    return MonadicFunctionInstance.AbosulteValue;
+                    return baseT.Field("AbosulteValue");
                 case Tokens.CEILING:
-                    return MonadicFunctionInstance.Ceiling;
+                    return baseT.Field("Ceiling");
                 case Tokens.EXPONENTIAL:
-                    return MonadicFunctionInstance.Exponential;
+                    return baseT.Field("Exponential");
                 case Tokens.FLOOR:
-                    return MonadicFunctionInstance.Floor;
+                    return baseT.Field("Floor");
                 case Tokens.IDENTITY:
-                    return MonadicFunctionInstance.Identity;
+                    return baseT.Field("Identity");
                 case Tokens.NATURALLOG:
-                    return MonadicFunctionInstance.NaturalLog;
+                    return baseT.Field("NaturalLog");
                 case Tokens.NEGATE:
-                    return MonadicFunctionInstance.Negate;
+                    return baseT.Field("Negate");
                 case Tokens.NOT:
-                    return MonadicFunctionInstance.Not;
+                    return baseT.Field("Not");
                 case Tokens.PITIMES:
-                    return MonadicFunctionInstance.PiTimes;
+                    return baseT.Field("PiTimes");
                 case Tokens.RECIPROCAL:
-                    return MonadicFunctionInstance.Reciprocal;
+                    return baseT.Field("Reciprocal");
                 case Tokens.ROLL:
-                    return MonadicFunctionInstance.Roll;
+                    return baseT.Field("Roll");
                 case Tokens.SIGN:
-                    return MonadicFunctionInstance.Sign;
+                    return baseT.Field("Sign");
 
                 #endregion
 
                 #region Monadic Non Scalar
 
                 case Tokens.COUNT:
-                    return MonadicFunctionInstance.Count;
+                    return baseT.Field("Count");
                 case Tokens.DEPTH:
-                    return MonadicFunctionInstance.Depth;
+                    return baseT.Field("Depth");
                 case Tokens.DISCLOSE:
-                    return MonadicFunctionInstance.Disclose;
+                    return baseT.Field("Disclose");
                 case Tokens.ENCLOSE:
-                    return MonadicFunctionInstance.Enclose;
+                    return baseT.Field("Enclose");
                 case Tokens.EXECUTE:
-                    return MonadicFunctionInstance.ExecuteFunction;
+                    return baseT.Field("ExecuteFunction");
                 case Tokens.DEFAULTFORMAT:
-                    return MonadicFunctionInstance.DefaultFormat;
+                    return baseT.Field("DefaultFormat");
                 case Tokens.GRADEDOWN:
-                    return MonadicFunctionInstance.GradeDown;
+                    return baseT.Field("GradeDown");
                 case Tokens.GRADEUP:
-                    return MonadicFunctionInstance.GradeUp;
+                    return baseT.Field("GradeUp");
                 case Tokens.INTERVAL:
-                    return MonadicFunctionInstance.Interval;
+                    return baseT.Field("Interval");
                 case Tokens.ITEMRAVEL:
-                    return MonadicFunctionInstance.ItemRavel;
+                    return baseT.Field("ItemRavel");
                 case Tokens.MAPIN:
-                    return MonadicFunctionInstance.MapIn;
+                    return baseT.Field("MapIn");
                 case Tokens.MATRIXINVERSE:
-                    return MonadicFunctionInstance.MatrixInverse;
+                    return baseT.Field("MatrixInverse");
                 case Tokens.NULL:
-                    return MonadicFunctionInstance.NullFunction;
+                    return baseT.Field("NullFunction");
                 case Tokens.PACK:
-                    return MonadicFunctionInstance.Pack;
+                    return baseT.Field("Pack");
                 case Tokens.PARTITIONCOUNT:
-                    return MonadicFunctionInstance.PartitionCount;
+                    return baseT.Field("PartitionCount");
                 case Tokens.PRINT:
-                    return MonadicFunctionInstance.Print;
+                    return baseT.Field("Print");
                 case Tokens.RAKE:
-                    return MonadicFunctionInstance.Rake;
+                    return baseT.Field("Rake");
                 case Tokens.RAVEL:
-                    return MonadicFunctionInstance.Ravel;
+                    return baseT.Field("Ravel");
                 case Tokens.RAZE:
-                    return MonadicFunctionInstance.Raze;
+                    return baseT.Field("Raze");
                 case Tokens.REVERSE:
-                    return MonadicFunctionInstance.Reverse;
+                    return baseT.Field("Reverse");
                 case Tokens.RIGHT:
-                    return MonadicFunctionInstance.Right;
+                    return baseT.Field("Right");
                 case Tokens.SEPARATESYMBOLS:
-                    return MonadicFunctionInstance.SeparateSymbols;
+                    return baseT.Field("SeparateSymbols");
                 case Tokens.SHAPE:
-                    return MonadicFunctionInstance.Shape;
+                    return baseT.Field("Shape");
                 case Tokens.SIGNAL:
-                    return MonadicFunctionInstance.Signal;
+                    return baseT.Field("Signal");
                 case Tokens.STOP:
-                    return MonadicFunctionInstance.Stop;
+                    return baseT.Field("Stop");
                 case Tokens.TRANSPOSE:
-                    return MonadicFunctionInstance.Transpose;
+                    return baseT.Field("Transpose");
                 case Tokens.TYPE:
-                    return MonadicFunctionInstance.Type;
+                    return baseT.Field("Type");
                 case Tokens.UNPACK:
-                    return MonadicFunctionInstance.Unpack;
+                    return baseT.Field("Unpack");
                 case Tokens.VALUE:
-                    return MonadicFunctionInstance.Value;
+                    return baseT.Field("Value");
 
                 #endregion
 
                 #region Monadic Operator
 
                 case Tokens.RADD:
-                    return MonadicFunctionInstance.ReduceAdd;
+                    return baseT.Field("ReduceAdd");
                 case Tokens.RMULTIPLY:
-                    return MonadicFunctionInstance.ReduceMultiply;
+                    return baseT.Field("ReduceMultiply");
                 case Tokens.ROR:
-                    return MonadicFunctionInstance.ReduceOr;
+                    return baseT.Field("ReduceOr");
                 case Tokens.RAND:
-                    return MonadicFunctionInstance.ReduceAnd;
+                    return baseT.Field("ReduceAnd");
                 case Tokens.RMAX:
-                    return MonadicFunctionInstance.ReduceMax;
+                    return baseT.Field("ReduceMax");
                 case Tokens.RMIN:
-                    return MonadicFunctionInstance.ReduceMin;
+                    return baseT.Field("ReduceMin");
                 case Tokens.SADD:
-                    return MonadicFunctionInstance.ScanAdd;
+                    return baseT.Field("ScanAdd");
                 case Tokens.SMULTIPLY:
-                    return MonadicFunctionInstance.ScanMultiply;
+                    return baseT.Field("ScanMultiply");
                 case Tokens.SMIN:
-                    return MonadicFunctionInstance.ScanMin;
+                    return baseT.Field("ScanMin");
                 case Tokens.SMAX:
-                    return MonadicFunctionInstance.ScanMax;
+                    return baseT.Field("ScanMax");
                 case Tokens.SAND:
-                    return MonadicFunctionInstance.ScanAnd;
+                    return baseT.Field("ScanAnd");
                 case Tokens.SOR:
-                    return MonadicFunctionInstance.ScanOr;
+                    return baseT.Field("ScanOr");
 
                 #endregion
 
                 #region Bitwise Operator
 
                 case Tokens.BWNOT:
-                    return MonadicFunctionInstance.BitwiseNot;
+                    return baseT.Field("BitwiseNot");
 
                 #endregion
 
@@ -204,174 +208,175 @@ namespace AplusCore.Compiler.AST
         /// Return the A+ native dyadic function for the specified dyadic token.
         /// </summary>
         /// <returns><b>null</b> if no dyadic function found</returns>
-        internal static AbstractDyadicFunction GetDyadicMethod(Token token)
+        internal static DLR.MemberExpression GetDyadicMethod(Token token)
         {
+            Type baseT = typeof(DyadicFunctionInstance);
             switch (token.Type)
             {
                 #region Dyadic Scalar
 
                 case Tokens.ADD:
-                    return DyadicFunctionInstance.Add;
+                    return baseT.Field("Add");
                 case Tokens.AND:
-                    return DyadicFunctionInstance.And;
+                    return baseT.Field("And");
                 case Tokens.CIRCLE:
-                    return DyadicFunctionInstance.Circle;
+                    return baseT.Field("Circle");
                 case Tokens.COMBINESYMBOLS:
-                    return DyadicFunctionInstance.CombineSymbols;
+                    return baseT.Field("CombineSymbols");
                 case Tokens.DIVIDE:
-                    return DyadicFunctionInstance.Divide;
+                    return baseT.Field("Divide");
                 case Tokens.EQUAL:
-                    return DyadicFunctionInstance.EqualTo;
+                    return baseT.Field("EqualTo");
                 case Tokens.GT:
-                    return DyadicFunctionInstance.GreaterThan;
+                    return baseT.Field("GreaterThan");
                 case Tokens.GTE:
-                    return DyadicFunctionInstance.GreaterThanOrEqualTo;
+                    return baseT.Field("GreaterThanOrEqualTo");
                 case Tokens.LOG:
-                    return DyadicFunctionInstance.Log;
+                    return baseT.Field("Log");
                 case Tokens.LT:
-                    return DyadicFunctionInstance.LessThan;
+                    return baseT.Field("LessThan");
                 case Tokens.LTE:
-                    return DyadicFunctionInstance.LessThanOrEqualTo;
+                    return baseT.Field("LessThanOrEqualTo");
                 case Tokens.MAX:
-                    return DyadicFunctionInstance.Max;
+                    return baseT.Field("Max");
                 case Tokens.MIN:
-                    return DyadicFunctionInstance.Min;
+                    return baseT.Field("Min");
                 case Tokens.MULTIPLY:
-                    return DyadicFunctionInstance.Multiply;
+                    return baseT.Field("Multiply");
                 case Tokens.NOTEQUAL:
-                    return DyadicFunctionInstance.NotEqualTo;
+                    return baseT.Field("NotEqualTo");
                 /*case Tokens.OR:
                     //Cast nonscalar primitive functon has not implementeted yet!
                     return DyadicFunctionInstance.Or;
                     return DyadicFunctionInstance.Cast;*/
                 case Tokens.POWER:
-                    return DyadicFunctionInstance.Power;
+                    return baseT.Field("Power");
                 case Tokens.RESIDUE:
-                    return DyadicFunctionInstance.Residue;
+                    return baseT.Field("Residue");
                 case Tokens.SUBTRACT:
-                    return DyadicFunctionInstance.Subtract;
+                    return baseT.Field("Subtract");
 
                 #endregion
 
                 #region Dyadic Non Scalar
 
                 case Tokens.BINS:
-                    return DyadicFunctionInstance.Bins;
+                    return baseT.Field("Bins");
                 case Tokens.CATENATE:
-                    return DyadicFunctionInstance.Catenate;
+                    return baseT.Field("Catenate");
                 case Tokens.CHOOSE:
-                    return DyadicFunctionInstance.Choose;
+                    return baseT.Field("Choose");
                 case Tokens.DEAL:
-                    return DyadicFunctionInstance.Deal;
+                    return baseT.Field("Deal");
                 case Tokens.DECODE:
-                    return DyadicFunctionInstance.Decode;
+                    return baseT.Field("Decode");
                 case Tokens.DROP:
-                    return DyadicFunctionInstance.Drop;
+                    return baseT.Field("Drop");
                 case Tokens.ENCODE:
-                    return DyadicFunctionInstance.Encode;
+                    return baseT.Field("Encode");
                 case Tokens.EXECUTEINCONTEXT:
-                    return DyadicFunctionInstance.ExecuteInContext;
+                    return baseT.Field("ExecuteInContext");
                 case Tokens.EXPAND:
-                    return DyadicFunctionInstance.Expand;
+                    return baseT.Field("Expand");
                 case Tokens.FORMAT:
-                    return DyadicFunctionInstance.Format;
+                    return baseT.Field("Format");
                 case Tokens.FIND:
-                    return DyadicFunctionInstance.Find;
+                    return baseT.Field("Find");
                 case Tokens.LAMINATE:
-                    return DyadicFunctionInstance.Laminate;
+                    return baseT.Field("Laminate");
                 case Tokens.LEFT:
-                    return DyadicFunctionInstance.Left;
+                    return baseT.Field("Left");
                 case Tokens.MAP:
-                    return DyadicFunctionInstance.Map;
+                    return baseT.Field("Map");
                 case Tokens.MATCH:
-                    return DyadicFunctionInstance.Match;
+                    return baseT.Field("Match");
                 case Tokens.MEMBER:
-                    return DyadicFunctionInstance.Member;
+                    return baseT.Field("Member");
                 case Tokens.PARTITION:
-                    return DyadicFunctionInstance.Partition;
+                    return baseT.Field("Partition");
                 case Tokens.PICK:
-                    return DyadicFunctionInstance.Pick;
+                    return baseT.Field("Pick");
                 case Tokens.REPLICATE:
-                    return DyadicFunctionInstance.Replicate;
+                    return baseT.Field("Replicate");
                 case Tokens.RESHAPE:
-                    return DyadicFunctionInstance.Reshape;
+                    return baseT.Field("Reshape");
                 case Tokens.RESTRUCTURE:
-                    return DyadicFunctionInstance.Restructure;
+                    return baseT.Field("Restructure");
                 case Tokens.ROTATE:
-                    return DyadicFunctionInstance.Rotate;
+                    return baseT.Field("Rotate");
                 case Tokens.SOLVE:
-                    return DyadicFunctionInstance.Solve;
+                    return baseT.Field("Solve");
                 case Tokens.TAKE:
-                    return DyadicFunctionInstance.Take;
+                    return baseT.Field("Take");
                 case Tokens.TRANSPOSEAXES:
-                    return DyadicFunctionInstance.TransposeAxis;
+                    return baseT.Field("TransposeAxis");
                 case Tokens.VALUEINCONTEXT:
-                    return DyadicFunctionInstance.ValueInContext;
+                    return baseT.Field("ValueInContext");
 
                 #endregion
 
                 #region Inner Products
 
                 case Tokens.IPADDMULTIPLY:
-                    return DyadicFunctionInstance.IPAddMultiply;
+                    return baseT.Field("IPAddMultiply");
                 case Tokens.IPMAXADD:
-                    return DyadicFunctionInstance.IPMaxAdd;
+                    return baseT.Field("IPMaxAdd");
                 case Tokens.IPMINADD:
-                    return DyadicFunctionInstance.IPMinAdd;
+                    return baseT.Field("IPMinAdd");
 
                 #endregion
 
                 #region Outer Products
 
                 case Tokens.OPADD:
-                    return DyadicFunctionInstance.OPAdd;
+                    return baseT.Field("OPAdd");
                 case Tokens.OPDIVIDE:
-                    return DyadicFunctionInstance.OPDivide;
+                    return baseT.Field("OPDivide");
                 case Tokens.OPEQUAL:
-                    return DyadicFunctionInstance.OPEqual;
+                    return baseT.Field("OPEqual");
                 case Tokens.OPGT:
-                    return DyadicFunctionInstance.OPGreater;
+                    return baseT.Field("OPGreater");
                 case Tokens.OPGTE:
-                    return DyadicFunctionInstance.OPGreaterEqual;
+                    return baseT.Field("OPGreaterEqual");
                 case Tokens.OPLT:
-                    return DyadicFunctionInstance.OPLess;
+                    return baseT.Field("OPLess");
                 case Tokens.OPLTE:
-                    return DyadicFunctionInstance.OPLessEqual;
+                    return baseT.Field("OPLessEqual");
                 case Tokens.OPMAX:
-                    return DyadicFunctionInstance.OPMax;
+                    return baseT.Field("OPMax");
                 case Tokens.OPMIN:
-                    return DyadicFunctionInstance.OPMin;
+                    return baseT.Field("OPMin");
                 case Tokens.OPMULTIPLY:
-                    return DyadicFunctionInstance.OPMultiply;
+                    return baseT.Field("OPMultiply");
                 case Tokens.OPNOTEQUAL:
-                    return DyadicFunctionInstance.OPNotEqual;
+                    return baseT.Field("OPNotEqual");
                 case Tokens.OPPOWER:
-                    return DyadicFunctionInstance.OPPower;
+                    return baseT.Field("OPPower");
                 case Tokens.OPRESIDUE:
-                    return DyadicFunctionInstance.OPResidue;
+                    return baseT.Field("OPResidue");
                 case Tokens.OPSUBSTRACT:
-                    return DyadicFunctionInstance.OPSubtract;
+                    return baseT.Field("OPSubtract");
 
                 #endregion
 
                 #region Bitwise Operators
 
                 case Tokens.BWAND:
-                    return DyadicFunctionInstance.BitwiseAnd;
+                    return baseT.Field("BitwiseAnd");
                 case Tokens.BWOR:
-                    return DyadicFunctionInstance.BitwiseOr;
+                    return baseT.Field("BitwiseOr");
                 case Tokens.BWLESS:
-                    return DyadicFunctionInstance.BitwiseLess;
+                    return baseT.Field("BitwiseLess");
                 case Tokens.BWLESSEQUAL:
-                    return DyadicFunctionInstance.BitwiseLessEqual;
+                    return baseT.Field("BitwiseLessEqual");
                 case Tokens.BWEQUAL:
-                    return DyadicFunctionInstance.BitwiseEqual;
+                    return baseT.Field("BitwiseEqual");
                 case Tokens.BWGREATEREQUAL:
-                    return DyadicFunctionInstance.BitwiseGreaterEqual;
+                    return baseT.Field("BitwiseGreaterEqual");
                 case Tokens.BWGREATER:
-                    return DyadicFunctionInstance.BitwiseGreater;
+                    return baseT.Field("BitwiseGreater");
                 case Tokens.BWNOTEQUAL:
-                    return DyadicFunctionInstance.BitwiseNotEqual;
+                    return baseT.Field("BitwiseNotEqual");
 
                 #endregion
 

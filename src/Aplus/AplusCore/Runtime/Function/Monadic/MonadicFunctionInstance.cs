@@ -19,33 +19,33 @@ namespace AplusCore.Runtime.Function.Monadic
 
         #region Arithmetic
 
-        internal static readonly AbstractMonadicFunction Identity = new Identity();
-        internal static readonly AbstractMonadicFunction Negate = new Negate();
+        public static readonly AbstractMonadicFunction Identity = new Identity();
+        public static readonly AbstractMonadicFunction Negate = new Negate();
 
         #endregion
 
         #region Logical
 
-        internal static readonly AbstractMonadicFunction Not = new Not();
+        public static readonly AbstractMonadicFunction Not = new Not();
 
         #endregion
 
         #region Miscellaneous
 
-        internal static readonly AbstractMonadicFunction AbosulteValue = new AbsoluteValue();
-        internal static readonly AbstractMonadicFunction Ceiling = new Ceiling();
-        internal static readonly AbstractMonadicFunction Floor = new Floor();
-        internal static readonly AbstractMonadicFunction Reciprocal = new Reciprocal();
-        internal static readonly AbstractMonadicFunction Roll = new Roll();
-        internal static readonly AbstractMonadicFunction Sign = new Sign();
+        public static readonly AbstractMonadicFunction AbosulteValue = new AbsoluteValue();
+        public static readonly AbstractMonadicFunction Ceiling = new Ceiling();
+        public static readonly AbstractMonadicFunction Floor = new Floor();
+        public static readonly AbstractMonadicFunction Reciprocal = new Reciprocal();
+        public static readonly AbstractMonadicFunction Roll = new Roll();
+        public static readonly AbstractMonadicFunction Sign = new Sign();
 
         #endregion
 
         #region Elementary
 
-        internal static readonly AbstractMonadicFunction Exponential = new Exponential();
-        internal static readonly AbstractMonadicFunction NaturalLog = new NaturalLog();
-        internal static readonly AbstractMonadicFunction PiTimes = new PiTimes();
+        public static readonly AbstractMonadicFunction Exponential = new Exponential();
+        public static readonly AbstractMonadicFunction NaturalLog = new NaturalLog();
+        public static readonly AbstractMonadicFunction PiTimes = new PiTimes();
 
         #endregion
 
@@ -55,60 +55,60 @@ namespace AplusCore.Runtime.Function.Monadic
 
         #region Comprasion
 
-        internal static readonly AbstractMonadicFunction GradeDown = new GradeDown();
-        internal static readonly AbstractMonadicFunction GradeUp = new GradeUp();
-        internal static readonly AbstractMonadicFunction PartitionCount = new PartitionCount();
+        public static readonly AbstractMonadicFunction GradeDown = new GradeDown();
+        public static readonly AbstractMonadicFunction GradeUp = new GradeUp();
+        public static readonly AbstractMonadicFunction PartitionCount = new PartitionCount();
 
         #endregion
 
         #region Computational
 
-        internal static readonly AbstractMonadicFunction MatrixInverse = new MatrixInverse();
-        internal static readonly AbstractMonadicFunction Pack = new Pack();
-        internal static readonly AbstractMonadicFunction Unpack = new Unpack();
+        public static readonly AbstractMonadicFunction MatrixInverse = new MatrixInverse();
+        public static readonly AbstractMonadicFunction Pack = new Pack();
+        public static readonly AbstractMonadicFunction Unpack = new Unpack();
 
         #endregion
 
         #region Informational
 
-        internal static readonly AbstractMonadicFunction Count = new Count();
-        internal static readonly AbstractMonadicFunction Depth = new Depth();
-        internal static readonly AbstractMonadicFunction Shape = new Shape();
-        internal static readonly AbstractMonadicFunction Type = new TypeFunction();
+        public static readonly AbstractMonadicFunction Count = new Count();
+        public static readonly AbstractMonadicFunction Depth = new Depth();
+        public static readonly AbstractMonadicFunction Shape = new Shape();
+        public static readonly AbstractMonadicFunction Type = new TypeFunction();
 
         #endregion
 
         #region Selection
 
-        internal static readonly AbstractMonadicFunction NullFunction = new NullFunction();
-        internal static readonly AbstractMonadicFunction Right = new Right();
-        internal static readonly AbstractMonadicFunction SeparateSymbols = new SeparateSymbols();
+        public static readonly AbstractMonadicFunction NullFunction = new NullFunction();
+        public static readonly AbstractMonadicFunction Right = new Right();
+        public static readonly AbstractMonadicFunction SeparateSymbols = new SeparateSymbols();
 
         #endregion
 
         #region Structural
 
-        internal static readonly AbstractMonadicFunction Disclose = new Disclose();
-        internal static readonly AbstractMonadicFunction Enclose = new Enclose();
-        internal static readonly AbstractMonadicFunction Interval = new Interval();
-        internal static readonly AbstractMonadicFunction ItemRavel = new ItemRavel();
-        internal static readonly AbstractMonadicFunction Rake = new Rake();
-        internal static readonly AbstractMonadicFunction Ravel = new Ravel();
-        internal static readonly AbstractMonadicFunction Raze = new Raze();
-        internal static readonly AbstractMonadicFunction Reverse = new Reverse();
-        internal static readonly AbstractMonadicFunction Transpose = new Transpose();
+        public static readonly AbstractMonadicFunction Disclose = new Disclose();
+        public static readonly AbstractMonadicFunction Enclose = new Enclose();
+        public static readonly AbstractMonadicFunction Interval = new Interval();
+        public static readonly AbstractMonadicFunction ItemRavel = new ItemRavel();
+        public static readonly AbstractMonadicFunction Rake = new Rake();
+        public static readonly AbstractMonadicFunction Ravel = new Ravel();
+        public static readonly AbstractMonadicFunction Raze = new Raze();
+        public static readonly AbstractMonadicFunction Reverse = new Reverse();
+        public static readonly AbstractMonadicFunction Transpose = new Transpose();
 
         #endregion
 
         #region Other
 
-        internal static readonly AbstractMonadicFunction ExecuteFunction = new ExecuteFunction();
-        internal static readonly AbstractMonadicFunction DefaultFormat = new DefaultFormat();
-        internal static readonly AbstractMonadicFunction Print = new Print();
-        internal static readonly AbstractMonadicFunction Signal = new Signal();
-        internal static readonly AbstractMonadicFunction Stop = new Stop();
-        internal static readonly AbstractMonadicFunction MapIn = new MapIn();
-        internal static readonly AbstractMonadicFunction Value = new Value();
+        public static readonly AbstractMonadicFunction ExecuteFunction = new ExecuteFunction();
+        public static readonly AbstractMonadicFunction DefaultFormat = new DefaultFormat();
+        public static readonly AbstractMonadicFunction Print = new Print();
+        public static readonly AbstractMonadicFunction Signal = new Signal();
+        public static readonly AbstractMonadicFunction Stop = new Stop();
+        public static readonly AbstractMonadicFunction MapIn = new MapIn();
+        public static readonly AbstractMonadicFunction Value = new Value();
 
         #endregion
 
@@ -118,29 +118,29 @@ namespace AplusCore.Runtime.Function.Monadic
 
         #region Bitwise
 
-        internal static readonly AbstractMonadicFunction BitwiseNot = new BitwiseNot();
+        public static readonly AbstractMonadicFunction BitwiseNot = new BitwiseNot();
 
         #endregion
 
         #region Reduction
 
-        internal static readonly AbstractMonadicFunction ReduceAdd = new ReduceAdd();
-        internal static readonly AbstractMonadicFunction ReduceMultiply = new ReduceMultiply();
-        internal static readonly AbstractMonadicFunction ReduceOr = new ReduceOr();
-        internal static readonly AbstractMonadicFunction ReduceAnd = new ReduceAnd();
-        internal static readonly AbstractMonadicFunction ReduceMax = new ReduceMax();
-        internal static readonly AbstractMonadicFunction ReduceMin = new ReduceMin();
+        public static readonly AbstractMonadicFunction ReduceAdd = new ReduceAdd();
+        public static readonly AbstractMonadicFunction ReduceMultiply = new ReduceMultiply();
+        public static readonly AbstractMonadicFunction ReduceOr = new ReduceOr();
+        public static readonly AbstractMonadicFunction ReduceAnd = new ReduceAnd();
+        public static readonly AbstractMonadicFunction ReduceMax = new ReduceMax();
+        public static readonly AbstractMonadicFunction ReduceMin = new ReduceMin();
 
         #endregion
 
         #region Scan
 
-        internal static readonly AbstractMonadicFunction ScanAdd = new ScanAdd();
-        internal static readonly AbstractMonadicFunction ScanMultiply = new ScanMultiply();
-        internal static readonly AbstractMonadicFunction ScanMin = new ScanMin();
-        internal static readonly AbstractMonadicFunction ScanMax = new ScanMax();
-        internal static readonly AbstractMonadicFunction ScanAnd = new ScanAnd();
-        internal static readonly AbstractMonadicFunction ScanOr = new ScanOr();
+        public static readonly AbstractMonadicFunction ScanAdd = new ScanAdd();
+        public static readonly AbstractMonadicFunction ScanMultiply = new ScanMultiply();
+        public static readonly AbstractMonadicFunction ScanMin = new ScanMin();
+        public static readonly AbstractMonadicFunction ScanMax = new ScanMax();
+        public static readonly AbstractMonadicFunction ScanAnd = new ScanAnd();
+        public static readonly AbstractMonadicFunction ScanOr = new ScanOr();
 
         #endregion
 

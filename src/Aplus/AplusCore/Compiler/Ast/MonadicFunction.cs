@@ -117,7 +117,7 @@ namespace AplusCore.Compiler.AST
             }
             else
             {
-                AbstractMonadicFunction method = MethodChooser.GetMonadicMethod(this.token);
+                DLR.MemberExpression method = MethodChooser.GetMonadicMethod(this.token);
 
                 if (method == null)
                 {
@@ -125,9 +125,11 @@ namespace AplusCore.Compiler.AST
                 }
 
                 //DLR.MemberExpression methodExpression = typeof(MonadicFunctionInstance).Field(this.token.Type.ToString());
-                DLR.Expression newMethod = DLR.Expression.New(method.GetType().GetConstructor(new Type[] { }));
+                //DLR.Expression newMethod = DLR.Expression.New(method.GetType().GetConstructor(new Type[] { }));
                 result = DLR.Expression.Call(
-                    newMethod,
+                    method,
+                    //methodExpression,
+                    //DLR.Expression.Constant(method, typeof(AbstractMonadicFunction)),
                     typeof(AbstractMonadicFunction).GetMethod("Execute"),
                     argument,
                     scope.GetRuntimeExpression()

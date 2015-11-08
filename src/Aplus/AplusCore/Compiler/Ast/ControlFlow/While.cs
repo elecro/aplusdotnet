@@ -2,6 +2,7 @@
 using AplusCore.Types;
 
 using DLR = System.Linq.Expressions;
+using System;
 
 namespace AplusCore.Compiler.AST
 {
@@ -71,7 +72,10 @@ namespace AplusCore.Compiler.AST
             DLR.Expression result = DLR.Expression.Block(
                 new DLR.ParameterExpression[] { returnValue },
                 // Assign the default return value: ANull
-                DLR.Expression.Assign(returnValue, DLR.Expression.Constant(Utils.ANull())),
+                DLR.Expression.Assign(
+                    returnValue,
+                    DLR.Expression.Call(typeof(Utils).GetMethod("ANull", new Type[] { }))
+                ),
                 DLR.Expression.Loop(
                     DLR.Expression.Block(
                         DLR.Expression.IfThen(

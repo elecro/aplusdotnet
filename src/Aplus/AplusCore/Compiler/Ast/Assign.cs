@@ -766,7 +766,10 @@ namespace AplusCore.Compiler.AST
         /// <returns>A generated DLR expression for strand assignment</returns>
         private static DLR.Expression GenerateStrandAssign(AplusScope scope, Strand targets, DLR.Expression value)
         {
-            AbstractMonadicFunction disclose = MonadicFunctionInstance.Disclose;
+            //AbstractMonadicFunction disclose = MonadicFunctionInstance.Disclose;
+            DLR.MemberExpression discloseMember = typeof(MonadicFunctionInstance).Field("Disclose");
+            MethodInfo discloseExecuteMethod = typeof(AbstractMonadicFunction).GetMethod("Execute");
+
             Aplus runtime = scope.GetRuntime();
             DLR.ParameterExpression environment = scope.GetRuntimeExpression();
 
@@ -782,8 +785,8 @@ namespace AplusCore.Compiler.AST
                 DLR.Expression.Assign(
                     valuesParam,
                     DLR.Expression.Call(
-                        DLR.Expression.Constant(disclose),
-                        disclose.GetType().GetMethod("Execute"),
+                        discloseMember,
+                        discloseExecuteMethod,
                         valuesParam,
                         environment
                     )
@@ -802,8 +805,8 @@ namespace AplusCore.Compiler.AST
 
                 DLR.Expression strandValue =
                     DLR.Expression.Call(
-                        DLR.Expression.Constant(disclose),
-                        disclose.GetType().GetMethod("Execute"),
+                        discloseMember,
+                        discloseExecuteMethod,
                         DLR.Expression.MakeIndex(
                             valuesParam,
                             typeof(AType).GetIndexerProperty(typeof(int)), // The indexer property which will be used
@@ -1250,7 +1253,8 @@ namespace AplusCore.Compiler.AST
 
             // (,x)
             DLR.Expression raveledRight = DLR.Expression.Call(
-                DLR.Expression.Constant(MonadicFunctionInstance.Ravel),
+                typeof(MonadicFunctionInstance).Field("Ravel"),
+                //DLR.Expression.Constant(MonadicFunctionInstance.Ravel),
                 execute,
                 target,
                 scope.GetRuntimeExpression()

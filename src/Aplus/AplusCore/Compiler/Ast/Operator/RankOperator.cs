@@ -64,7 +64,8 @@ namespace AplusCore.Compiler.AST
             if (isDyadic)
             {
                 result = DLR.Expression.Call(
-                    DLR.Expression.Constant(DyadicOperatorInstance.Rank),
+                    typeof(DyadicOperatorInstance).Field("Rank"),
+                    //DLR.Expression.Constant(DyadicOperatorInstance.Rank),
                     DyadicOperatorInstance.Rank.GetType().GetMethod("Execute"),
                     func,
                     this.condition.Generate(scope),
@@ -76,7 +77,8 @@ namespace AplusCore.Compiler.AST
             else
             {
                 result = DLR.Expression.Call(
-                DLR.Expression.Constant(MonadicOperatorInstance.Rank),
+                typeof(MonadicOperatorInstance).Field("Rank"),
+                //DLR.Expression.Constant(MonadicOperatorInstance.Rank),
                 MonadicOperatorInstance.Rank.GetType().GetMethod("Execute"),
                 func,
                 this.condition.Generate(scope),

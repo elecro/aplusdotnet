@@ -98,7 +98,8 @@ namespace AplusCore.Compiler.AST
             }
             else
             {
-                result = DLR.Expression.Constant(Utils.ANull());
+                //result = DLR.Expression.Constant(Utils.ANull());
+                result = DLR.Expression.Call(typeof(Utils).GetMethod("ANull", new Type[] { }));
             }
 
             return result;

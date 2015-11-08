@@ -118,7 +118,8 @@ namespace AplusCore.Compiler.AST
                     DLR.Expression.Block(
                         DLR.Expression.Assign(scope.CallbackInfo.Index, left),
                         DLR.Expression.Call(
-                            DLR.Expression.Constant(DyadicFunctionInstance.Choose),
+                            typeof(DyadicFunctionInstance).Field("Choose"),
+                            //DLR.Expression.Constant(DyadicFunctionInstance.Choose),
                             DyadicFunctionInstance.Choose.GetType().GetMethod("Assign"),
                             right, left, scope.GetRuntimeExpression()
                         )
@@ -136,7 +137,8 @@ namespace AplusCore.Compiler.AST
                     DLR.Expression.Block(
                         DLR.Expression.Assign(scope.CallbackInfo.Path, left),
                         DLR.Expression.Call(
-                            DLR.Expression.Constant(DyadicFunctionInstance.Pick),
+                            typeof(DyadicFunctionInstance).Field("Pick"),
+                            //DLR.Expression.Constant(DyadicFunctionInstance.Pick),
                             DyadicFunctionInstance.Pick.GetType().GetMethod("Execute"),
                             right, left, scope.GetRuntimeExpression()
                         )
@@ -183,8 +185,9 @@ namespace AplusCore.Compiler.AST
                         DLR.Expression.Assign(
                             valueParam,
                             DLR.Expression.Call(
-                                DLR.Expression.Constant(DyadicFunctionInstance.Or),
-                                DyadicFunctionInstance.Or.GetType().GetMethod("Execute"),
+                                typeof(DyadicFunctionInstance).Field("Or"),
+                                //DLR.Expression.Constant(DyadicFunctionInstance.Or),
+                                typeof(AbstractDyadicFunction).GetMethod("Execute"),
                                 rightParam, leftParam, environment
                             )
                         ),
@@ -192,8 +195,9 @@ namespace AplusCore.Compiler.AST
                         DLR.Expression.Assign(
                             valueParam,
                             DLR.Expression.Call(
-                                DLR.Expression.Constant(DyadicFunctionInstance.Cast),
-                                DyadicFunctionInstance.Cast.GetType().GetMethod("Execute"),
+                                typeof(DyadicFunctionInstance).Field("Cast"),
+                                //DLR.Expression.Constant(DyadicFunctionInstance.Cast),
+                                typeof(AbstractDyadicFunction).GetMethod("Execute"),
                                 rightParam, leftParam, environment
                             )
                         )
@@ -216,29 +220,44 @@ namespace AplusCore.Compiler.AST
                             leftParam.Property("Type"),
                             DLR.Expression.Constant(ATypes.ASymbol)
                         ),
-                        DLR.Expression.Constant(DyadicFunctionInstance.BitwiseCast).Call<BitwiseCast>(
+                        DLR.Expression.Call(
+                            typeof(DyadicFunctionInstance).Field("BitwiseCast"),
+                            typeof(AbstractDyadicFunction).GetMethod("Execute"),
+                            rightParam,
+                            leftParam,
+                            environment
+                        ),
+                        DLR.Expression.Call(
+                            typeof(DyadicFunctionInstance).Field("BitwiseOr"),
+                            typeof(AbstractDyadicFunction).GetMethod("Execute"),
+                            rightParam,
+                            leftParam,
+                            environment
+                        )
+                        /*DLR.Expression.Constant(DyadicFunctionInstance.BitwiseCast).Call<BitwiseCast>(
                             "Execute", rightParam, leftParam, environment
                         ),
                         DLR.Expression.Constant(DyadicFunctionInstance.BitwiseOr).Call<BitwiseOr>(
                             "Execute", rightParam, leftParam, environment
-                        )
+                        )*/
                     )
                 );
             }
             else
             {
-                AbstractDyadicFunction method = MethodChooser.GetDyadicMethod(this.token);
+                DLR.MemberExpression method = MethodChooser.GetDyadicMethod(this.token);
 
                 if (method == null)
                 {
                     throw new ParseException(String.Format("Not supported Dyadic function[{0}]", this.token));
                 }
 
-                DLR.Expression newMethod = DLR.Expression.New(method.GetType().GetConstructor(new Type[] {}));
+                //DLR.Expression newMethod = DLR.Expression.New(method.GetType().GetConstructor(new Type[] {}));
                 result = DLR.Expression.Call(
-                    newMethod,
-                    //DLR.Expression.Constant(method),
-                    method.GetType().GetMethod("Execute"),
+                    //typeof(DyadicFunctionInstance).Field(this.token.Type.ToString()),
+                    //newMethod,
+                    method,
+                    typeof(AbstractDyadicFunction).GetMethod("Execute"),
                     right, left, environment
                 );
             }

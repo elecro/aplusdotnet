@@ -123,7 +123,8 @@ namespace AplusCore.Compiler.AST
                          DLR.Expression.Assign(
                             valueParam,
                              DLR.Expression.Call(
-                                 DLR.Expression.Constant(DyadicOperatorInstance.Apply),
+                                 typeof(DyadicOperatorInstance).Field("Apply"),
+                                 //DLR.Expression.Constant(DyadicOperatorInstance.Apply),
                                  DyadicOperatorInstance.Apply.GetType().GetMethod("Execute"),
                                  functionParam, rightParam, leftParam, environment
                              )
@@ -131,7 +132,8 @@ namespace AplusCore.Compiler.AST
                          DLR.Expression.Assign(
                             valueParam,
                              DLR.Expression.Call(
-                                 DLR.Expression.Constant(DyadicOperatorInstance.Each),
+                                 typeof(DyadicOperatorInstance).Field("Each"),
+                                 //DLR.Expression.Constant(DyadicOperatorInstance.Each),
                                  DyadicOperatorInstance.Each.GetType().GetMethod("Execute"),
                                  functionParam, rightParam, leftParam, environment
                              )
@@ -154,7 +156,8 @@ namespace AplusCore.Compiler.AST
                          DLR.Expression.Assign(
                             valueParam,
                              DLR.Expression.Call(
-                                 DLR.Expression.Constant(MonadicOperatorInstance.Apply),
+                                 typeof(MonadicOperatorInstance).Field("Apply"),
+                                 //DLR.Expression.Constant(MonadicOperatorInstance.Apply),
                                  MonadicOperatorInstance.Apply.GetType().GetMethod("Execute"),
                                  functionParam, rightParam, environment
                              )
@@ -162,7 +165,8 @@ namespace AplusCore.Compiler.AST
                          DLR.Expression.Assign(
                             valueParam,
                              DLR.Expression.Call(
-                                 DLR.Expression.Constant(MonadicOperatorInstance.Each),
+                                 typeof(MonadicOperatorInstance).Field("Each"),
+                                 //DLR.Expression.Constant(MonadicOperatorInstance.Each),
                                  MonadicOperatorInstance.Each.GetType().GetMethod("Execute"),
                                  functionParam, rightParam, environment
                              )
