@@ -2,127 +2,142 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting;
-
-using DLR = System.Linq.Expressions;
-using DYN = System.Dynamic;
+using System.IO;
 
 using AplusCore.Compiler;
-using AplusCore.Runtime;
-using AplusCore.Types;
 using AplusCore.Compiler.AST;
+
+using DLR = System.Linq.Expressions;
 
 namespace AplusDllCompiler
 {
     class Program
     {
-        internal static Node ParseCode(string code)
+        static void Main(string[] args)
         {
-            FunctionInformation funcionInfo = new FunctionInformation(".");
-            return Parse.ASCIIString(code, funcionInfo);
-        }
+            // Setup the program arguments
+            ArgumentParser argParser = new ArgumentParser();
+            argParser.AddArgument("class", "Base name of the generated class", true);
+            argParser.AddArgument("mode", "Base input mode for the A+ parser", new string[] { "apl", "ascii", "uni" });
+            argParser.AddArgument("help", "Display the help (duh..)", false);
 
-        internal static List<Node> FindUserDefMethods(Node treeTop)
-        {
-            List<Node> userMethods = new List<Node>();
+            // Parse all args
+            ParsedArguments parsed = argParser.Parse(args);
 
-            // We expect that the top level is an ExpressionList type node
-            if (treeTop.NodeType != NodeTypes.ExpressionList)
+            // Do a bit of preprocess on the argumnets
+            if (parsed.Options.ContainsKey("help")
+                || (parsed.Options.Count == 0 && parsed.Arguments.Count == 0))
             {
-                return userMethods;
+                string appName = System.AppDomain.CurrentDomain.FriendlyName;
+
+                Console.WriteLine("A+ to DLL Compiler v1.0");
+                Console.WriteLine();
+                Console.WriteLine("This tool converts A+ source scripts into DLLs which can be used from .NET");
+                Console.WriteLine();
+                Console.WriteLine("Usage: {0} --class=<arg> file1.a+ [file2.a+ ...]", appName);
+
+                argParser.WriteHelp();
+                Environment.Exit(1);
+                return;
             }
 
-            ExpressionList topExpressions = treeTop as ExpressionList;
-
-            foreach (Node expression in topExpressions.Items)
+            // Without a class name we can't build any classes now are we? :)
+            if (!parsed.Options.ContainsKey("class"))
             {
-                if (expression.NodeType == NodeTypes.UserDefFunction)
+                Console.Error.WriteLine("No 'class' option specified, please see help");
+                Environment.Exit(1);
+                return;
+            }
+
+            if (parsed.Arguments.Count == 0)
+            {
+                Console.Error.WriteLine("No file specified to compile to DLL");
+                Environment.Exit(1);
+                return;
+            }
+
+            // By default the 'ascii' mode is set if there is none specified
+            if (!parsed.Options.ContainsKey("mode"))
+            {
+                parsed.Options["mode"] = "ascii";
+            }
+
+            int invalidFileCount = 0;
+            foreach (string fileName in parsed.Arguments)
+            {
+                if (!File.Exists(fileName))
                 {
-                    userMethods.Add(expression);
+                    Console.Error.WriteLine("File does not exists: {0}", fileName);
+                    invalidFileCount++;
                 }
             }
 
-
-            return userMethods;
-        }
-
-        internal static List<DLR.LambdaExpression> ConvertNodes(List<Node> methods)
-        {
-            Aplus runtime = new Aplus();
-
-            AplusScope scope = new AplusScope(null, "__top__", runtime,
-                DLR.Expression.Parameter(typeof(Aplus), "__aplusRuntime__"),
-                DLR.Expression.Parameter(typeof(DYN.IDynamicMetaObjectProvider), "__module__")
-            );
-
-            List<DLR.LambdaExpression> dlrMethods = new List<DLR.LambdaExpression>();
-
-            foreach (Node userDefMethod in methods)
+            if (invalidFileCount > 0)
             {
-                DLR.Expression varSet = userDefMethod.Generate(scope);
-
-                DLR.Expression wrappedLambda = ((DLR.MethodCallExpression)((DLR.UnaryExpression)varSet).Operand).Arguments.Last();
-                DLR.LambdaExpression lambda = (DLR.LambdaExpression)((DLR.MethodCallExpression)wrappedLambda).Arguments[1];
-
-                List<DLR.ParameterExpression> newParams = new List<DLR.ParameterExpression>();
-                newParams.Add(scope.GetRuntimeExpression());
-                // We must change the order of the AType arguments to have a correct C# call order
-                newParams.AddRange(lambda.Parameters.Skip(1).Reverse());
-
-                DLR.LambdaExpression resultingLambda =
-                    DLR.Expression.Lambda(
-                        DLR.Expression.Block(
-                            new DLR.ParameterExpression[] {
-                                scope.GetModuleExpression(),
-                                lambda.Parameters.First()
-                            },
-                            DLR.Expression.Assign(
-                                lambda.Parameters.First(),
-                                scope.GetRuntimeExpression()
-                            ),
-                            DLR.Expression.Assign(
-                                scope.GetModuleExpression(),
-                                DLR.Expression.PropertyOrField(scope.GetRuntimeExpression(), "Context")
-                            ),
-                            lambda.Body
-                        ),
-                        lambda.Name,
-                        newParams
-                    );
-
-                dlrMethods.Add(resultingLambda);
+                Console.Error.WriteLine("Found non existent input file(s), exiting");
+                Environment.Exit(invalidFileCount);
+                return;
             }
 
-            return dlrMethods;
-        }
+            DateTime start = DateTime.UtcNow;
+            // Start the code converting, first to AST,
+            // then to LambdaExpressions
+            // and for last to Types & DLL
+            CodeConverter codeConverter = new CodeConverter(ToLexerMode(parsed.Options["mode"]));
 
-        static void Main(string[] args)
-        {
-            string src = @"
-                method{c}: { .d:=2; c+1 }
-                method2{c; e}: { (c * 0) + e + d }
-            ";
-
-            Node tree = ParseCode(src);
-            List<Node> methods = FindUserDefMethods(tree);
-            List<DLR.LambdaExpression> dlrMethods = ConvertNodes(methods);
-
-            AssemblyCreator asmCreator = new AssemblyCreator("Demo");
-            foreach (var item in dlrMethods)
+            foreach (string fileName in parsed.Arguments)
             {
-                asmCreator.AddMethod(item.Name.TrimStart('.'), item);
+                codeConverter.AddSourceFile(fileName);
             }
 
-            List<string> names = asmCreator.Build();
-            Console.WriteLine("Created '{0}.dll' with the following methods/properties/fields", asmCreator.AssemblyBaseName);
-            foreach (string name in names)
-	        {
-                Console.WriteLine("- {0}", name);
+            List<Node> nodes;
+            try
+            {
+                nodes = codeConverter.ParseSources();
+            }
+	        catch (ParseException e)
+            {
+                Console.WriteLine("Parser error:");
+                Console.WriteLine(e.Message);
+                Environment.Exit(1);
+                return;
 	        }
-            Console.WriteLine("Number of generated entries: {0}", names.Count);
 
-            Console.ReadLine();
+            List<DLR.LambdaExpression> lambdas = codeConverter.GetLambdaMethods(nodes);
+
+            // Now we add all of the methods to the assembly builder
+            AssemblyCreator asmCreator = new AssemblyCreator(parsed.Options["class"]);
+            foreach (DLR.LambdaExpression item in lambdas)
+            {
+                asmCreator.AddMethod(item.Name.TrimStart('.').Replace('.', '_'), item);
+            }
+
+            List<string> signatures = asmCreator.Build();
+
+            // Finally print out some infos
+            Console.WriteLine("Created '{0}.dll' assembly and '{1}.dll' module", asmCreator.AssemblyName, asmCreator.ModuleName);
+            Console.WriteLine("The following methods/fields/properties were created:");
+            foreach (string sig in signatures)
+            {
+                Console.WriteLine(" {0}", sig);
+            }
+
+            double runtime = (DateTime.UtcNow - start).TotalMilliseconds;
+            Console.WriteLine("Number of generated elements: {0} in {1:0.0} ms", signatures.Count, runtime);
+        }
+
+        private static LexerMode ToLexerMode(string mode)
+        {
+            switch (mode)
+            {
+                case "apl": return LexerMode.APL;
+                case "ascii": return LexerMode.ASCII;
+                case "uni": return LexerMode.UNI;
+                default:
+                    break;
+            }
+
+            return LexerMode.ASCII;
         }
     }
 }
