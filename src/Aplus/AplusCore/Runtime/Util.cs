@@ -30,14 +30,14 @@ namespace AplusCore.Runtime
     }
 
 
-    class Util
+    public class Util
     {
         /// <summary>
         /// Splits a User Name into Context Name and Variable name parts
         /// </summary>
         /// <param name="variableName"></param>
         /// <returns></returns>
-        internal static string[] SplitUserName(string variableName)
+        public static string[] SplitUserName(string variableName)
         {
             int lastDotPos = variableName.LastIndexOf('.');
 

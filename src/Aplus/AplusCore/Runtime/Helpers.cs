@@ -137,7 +137,7 @@ namespace AplusCore.Runtime
             return Utils.ANull();
         }
 
-        internal static MethodInfo SetVariableMethod = typeof(Helpers).GetMethod("SetVariable");
+        public static MethodInfo SetVariableMethod = typeof(Helpers).GetMethod("SetVariable");
         public static AType SetVariable(IDynamicMetaObjectProvider metaObject, string context, string name, AType value)
         {
             Scope scope = metaObject as Scope;
