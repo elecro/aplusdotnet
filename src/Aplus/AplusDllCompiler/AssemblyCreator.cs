@@ -127,6 +127,11 @@ namespace AplusDllCompiler
             return generatedNames;
         }
 
+        #endregion
+
+        #region type builder helpers
+
+
         /// <summary>
         /// Build a Module initializer class.
         /// </summary>
@@ -242,10 +247,6 @@ namespace AplusDllCompiler
                 aFunc
             );
         }
-
-        #endregion
-
-        #region type builder helpers
 
         /// <summary>
         /// Creates the Constructor code for the class.
