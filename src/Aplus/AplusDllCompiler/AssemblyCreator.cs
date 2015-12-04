@@ -27,7 +27,7 @@ namespace AplusDllCompiler
 
         public string AssemblyBaseName { get { return this.assemblyBaseName; } }
         public string AssemblyName { get { return this.assemblyBaseName + "Generated"; } }
-        public string ModuleName { get { return this.assemblyBaseName + "Module"; } }
+        public string ModuleName { get { return this.AssemblyName; } }
 
         public ICollection<string> MethodNames { get { return this.methods.Keys; } }
 
